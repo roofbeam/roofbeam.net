@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A Thousand Grandparents — the arithmetic of descent</title>
+<meta name="description" content="Your ancestors double every generation while the population you draw from does not. What that forces to be true about descent from slavery in America. 1860 census + Bryc 2015.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#E4EAEE; --land:#F6F8F9; --hair:#BFCBD3; --panel:#FBFCFD; --panel-edge:#CBD6DD;
+  --ink:#14202B; --ink-2:#3F5464; --ink-3:#6C8494; --accent:#B4531F; --flat:#C3CDD4;
+  --slots:#B4531F; --pool:#3F5464; --focus:#14202B;
+  --shadow:0 1px 2px rgba(20,32,43,.10),0 8px 24px -12px rgba(20,32,43,.28);
+  --r:10px; --s1:6px; --s2:10px; --s3:16px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0D161E; --land:#17232E; --hair:#2E3F4D; --panel:#121E28; --panel-edge:#2B3C49;
+  --ink:#E6EDF2; --ink-2:#A8BCC9; --ink-3:#7A8F9E; --accent:#E08A4E; --flat:#33424E;
+  --slots:#E08A4E; --pool:#A8BCC9; --focus:#E6EDF2;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 10px 28px -12px rgba(0,0,0,.7);
+}}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Archivo",system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 var(--s3)}
+h1,h2,h3{margin:0;letter-spacing:-.017em}
+a{color:var(--accent)}
+
+header{background:var(--panel);border-bottom:1px solid var(--panel-edge)}
+header .wrap{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2) var(--s3);padding:14px var(--s3) 13px}
+h1{font-size:17px;font-weight:800}
+.dek{margin:0;color:var(--ink-2);font-size:12.5px;max-width:70ch}
+.dek b{color:var(--ink);font-weight:600}
+.src{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--ink-3);text-align:right;line-height:1.5}
+
+cite{font-family:"IBM Plex Mono",monospace;font-style:normal;font-size:9.5px;font-weight:600;
+  letter-spacing:.05em;color:var(--ink-3);background:var(--paper);border:1px solid var(--panel-edge);
+  border-radius:4px;padding:1px 4px;margin-left:4px;vertical-align:1px;white-space:nowrap;text-decoration:none}
+a cite:hover{color:var(--ink);border-color:var(--accent)}
+
+.app{display:grid;grid-template-columns:264px minmax(0,1fr);gap:var(--s3);padding:var(--s3) 0}
+.card{background:var(--panel);border:1px solid var(--panel-edge);border-radius:var(--r);box-shadow:var(--shadow)}
+.card h2{margin:0;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.085em;color:var(--ink-3)}
+.rail{display:flex;flex-direction:column;gap:var(--s2);align-self:start;position:sticky;top:var(--s2)}
+#controls{padding:var(--s3);display:flex;flex-direction:column;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field>label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.085em;color:var(--ink-3)}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:2px;padding:2px;background:var(--paper);border:1px solid var(--panel-edge);border-radius:7px}
+.seg.wrap2{grid-auto-flow:row;grid-template-columns:1fr 1fr}
+.seg button{appearance:none;border:0;background:transparent;color:var(--ink-2);font:600 11.5px/1.15 "Archivo",sans-serif;padding:7px 4px;border-radius:5px;cursor:pointer}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 2px rgba(20,32,43,.14)}
+.thin{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.thin .v{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink);font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:18px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:3px;background:var(--hair);border-radius:2px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;margin-top:-5.5px;border-radius:50%;background:var(--accent);border:2px solid var(--panel);box-shadow:0 1px 3px rgba(20,32,43,.35)}
+input[type=range]::-moz-range-track{height:3px;background:var(--hair);border-radius:2px}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border:2px solid var(--panel);border-radius:50%;background:var(--accent)}
+input[type=range]:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:3px}
+.seg button:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+.hint{font-size:10.5px;color:var(--ink-3);line-height:1.4;margin:0}
+
+.out{display:flex;flex-direction:column;gap:var(--s2);min-width:0}
+#odds{padding:var(--s3);display:flex;flex-direction:column;gap:12px}
+.oddsrow{display:grid;grid-template-columns:1fr auto;align-items:center;gap:var(--s2) var(--s3)}
+.oddsrow+.oddsrow{border-top:1px solid var(--panel-edge);padding-top:12px}
+.olab{font-size:13.5px;font-weight:600;line-height:1.25}
+.osub{display:block;font-size:10.5px;font-weight:400;color:var(--ink-3);margin-top:2px}
+.oval{font-family:"IBM Plex Mono",monospace;font-size:26px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.02em;text-align:right;line-height:1}
+.oval.big{font-size:32px;color:var(--accent)}
+.bar{grid-column:1/-1;height:5px;background:var(--paper);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:3px;transition:width .18s ease}
+.bar.q i{background:var(--pool)}
+.tagline{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:2px 6px;border-radius:4px;background:var(--paper);color:var(--ink-3);border:1px solid var(--panel-edge)}
+
+#chart{padding:var(--s3) var(--s3) var(--s2);display:flex;flex-direction:column;gap:var(--s1)}
+.chead{display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap}
+.legend{margin-left:auto;display:flex;gap:var(--s3);font-size:10.5px;color:var(--ink-3);font-family:"IBM Plex Mono",monospace}
+.legend i{display:inline-block;width:14px;height:2.5px;vertical-align:3px;margin-right:5px;border-radius:2px}
+.stage{position:relative;width:100%;aspect-ratio:16/7;min-height:210px}
+svg{display:block;width:100%;height:100%;overflow:visible}
+.ax{stroke:var(--hair);stroke-width:1}
+.axt{fill:var(--ink-3);font-family:"IBM Plex Mono",monospace;font-size:9.5px}
+.ln{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.ln.s{stroke:var(--slots)}
+.ln.p{stroke:var(--pool);stroke-dasharray:none}
+.xhair{stroke:var(--focus);stroke-width:1;stroke-dasharray:3 3;opacity:.55}
+.cross circle{fill:var(--accent);stroke:var(--panel);stroke-width:2}
+.cross text{fill:var(--ink);font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600}
+
+section.blk{padding:var(--s3) 0;border-top:1px solid var(--panel-edge)}
+section.blk h2.big{font-size:15px;font-weight:800;margin-bottom:var(--s2)}
+section.blk p{color:var(--ink-2);max-width:74ch;font-size:13px}
+.deepgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--panel-edge);border:1px solid var(--panel-edge);border-radius:var(--r);overflow:hidden;margin:var(--s3) 0}
+.cell{background:var(--panel);padding:11px 13px 13px;display:flex;flex-direction:column;gap:2px}
+.cell .k{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)}
+.cell .v{font-family:"IBM Plex Mono",monospace;font-size:19px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.cell .n{font-size:10.5px;color:var(--ink-3);line-height:1.35}
+table.m{border-collapse:collapse;width:100%;max-width:640px;font-size:12.5px;margin:var(--s2) 0 0}
+table.m th,table.m td{text-align:left;padding:6px 10px 6px 0;border-bottom:1px solid var(--panel-edge)}
+table.m th{font-size:9.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);font-weight:700}
+table.m td.n{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;text-align:right}
+ol.srcs{font-size:12px;color:var(--ink-2);max-width:78ch;padding-left:20px;margin:var(--s2) 0 0}
+ol.srcs li{margin-bottom:7px}
+ol.srcs code{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--ink)}
+footer{border-top:1px solid var(--panel-edge);padding:20px 0 40px;color:var(--ink-3);font-size:11.5px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--s2)}
+@media (max-width:820px){
+  .app{grid-template-columns:1fr}
+  .rail{position:static}
+  .oval{font-size:22px} .oval.big{font-size:26px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div style="min-width:0">
+      <h1>A Thousand Grandparents</h1>
+      <p class="dek">Your ancestors double every generation. The population they were drawn from did not. Push back far enough and <b>your ancestral slots outnumber everyone alive</b> — which forces conclusions about descent that no one's intuition will volunteer.</p>
+    </div>
+    <div class="src">Eighth Census, 1860<br>Bryc et al. 2015 · Chang 1999</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="app">
+    <aside class="rail">
+      <div class="card" id="controls">
+        <h2>Your tree</h2>
+
+        <div class="field">
+          <div class="thin"><label for="birth">Born</label><span class="v" id="v-birth">1990</span></div>
+          <input id="birth" type="range" min="1930" max="2010" step="1" value="1990">
+        </div>
+
+        <div class="field">
+          <div class="thin"><label for="share">Lines here by 1860</label><span class="v" id="v-share">16 of 16</span></div>
+          <input id="share" type="range" min="0" max="100" step="1" value="100">
+          <p class="hint">Most Americans' ancestors weren't here yet. The 1880&ndash;1920 wave brought ~25M people into a country of 31M.</p>
+        </div>
+
+        <div class="field">
+          <label>Where those lines were</label>
+          <div class="seg wrap2" id="seg-region" role="group" aria-label="Region in 1860">
+            <button data-v="deep" aria-pressed="true">Deep South</button>
+            <button data-v="upper" aria-pressed="false">Upper South</button>
+            <button data-v="border" aria-pressed="false">Border</button>
+            <button data-v="north" aria-pressed="false">North</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Which population</label>
+          <div class="seg" id="seg-pool" role="group" aria-label="Population in 1860">
+            <button data-v="white" aria-pressed="true">Free white</button>
+            <button data-v="black" aria-pressed="false">Black</button>
+          </div>
+          <p class="hint">In 1860 this was the binding constraint on who married whom &mdash; enforced by law in every state that had slavery.</p>
+        </div>
+
+        <div class="field">
+          <div class="thin"><label for="flow">Gene flow across the line</label><span class="v" id="v-flow">1.0&times;</span></div>
+          <input id="flow" type="range" min="0" max="200" step="5" value="100">
+          <p class="hint">Scales the measured admixture rates <a href="#s-bryc"><cite>BRYC</cite></a>. At 0&times; the color line is treated as absolute &mdash; it wasn't.</p>
+        </div>
+      </div>
+    </aside>
+
+    <div class="out">
+      <div class="card" id="odds">
+        <div class="oddsrow">
+          <div class="olab">At least one enslaved ancestor
+            <span class="osub" id="sub-ens">&mdash;</span></div>
+          <div class="oval" id="p-ens">&mdash;</div>
+          <div class="bar"><i id="b-ens" style="width:0"></i></div>
+        </div>
+        <div class="oddsrow">
+          <div class="olab">At least one slaveholding ancestor
+            <span class="osub" id="sub-own">&mdash;</span></div>
+          <div class="oval" id="p-own">&mdash;</div>
+          <div class="bar"><i id="b-own" style="width:0"></i></div>
+        </div>
+        <div class="oddsrow">
+          <div class="olab">Both <span class="tagline">the point</span>
+            <span class="osub" id="sub-both">&mdash;</span></div>
+          <div class="oval big" id="p-both">&mdash;</div>
+          <div class="bar q"><i id="b-both" style="width:0"></i></div>
+        </div>
+      </div>
+
+      <div class="card" id="chart">
+        <div class="chead">
+          <h2>Slots against population</h2>
+          <div class="legend">
+            <span><i style="background:var(--slots)"></i>your slots</span>
+            <span><i style="background:var(--pool)"></i>people alive</span>
+          </div>
+        </div>
+        <div class="stage"><svg id="svg" preserveAspectRatio="none" aria-labelledby="chart-t"><title id="chart-t">Ancestral slots versus population over time, log scale</title></svg></div>
+        <p class="hint" id="chart-note">&mdash;</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="blk">
+    <h2 class="big">Where it collapses</h2>
+    <p>The row marked <b>both</b> is where the argument lands. Slaveholders and enslaved people were not two sealed populations that happened to share a continent &mdash; they shared households, and the genetic record of that is not ambiguous. So the honest question is never <i>which of the two am I descended from</i>. Push back far enough and the arithmetic stops offering that choice.</p>
+    <p>Doubling beats any population that grows slower than doubling &mdash; and every real one does. Once your slots pass the number of people alive, you are no longer drawing <em>some</em> ancestors from that population. You are drawing nearly all of them, repeatedly. This is Chang's result <a href="#s-chang"><cite>CHANG</cite></a>: in a population of size <i>n</i>, everyone shares a common ancestor about log<sub>2</sub>(<i>n</i>) generations back, and not much further back every person alive is an ancestor of everyone or of no one.</p>
+    <div class="deepgrid" id="deep"></div>
+    <p id="deep-note">&mdash;</p>
+  </section>
+
+  <section class="blk">
+    <h2 class="big">What the model does, and where it lies</h2>
+    <p>Two different kinds of number are on this page, and mixing them up is how this argument usually goes wrong.</p>
+    <p><b>Counting results</b> &mdash; the enslaved-ancestor odds for a Black line, the slaveholding-ancestor odds for a white Southern line, the crossing year. These fall out of arithmetic on census counts: <code style="font-family:'IBM Plex Mono',monospace;font-size:11.5px">P(at least one) = 1 &minus; (1 &minus; p)<sup>n</sup></code> over <i>n</i> independent lines. The independence assumption is the weak joint &mdash; real trees cluster by county, church and class, which pushes the true number <em>down</em> from what's shown.</p>
+    <p><b>Measured results</b> &mdash; every number that crosses the color line. These are not derived; they are read off genotype data from ~160,000 people <a href="#s-bryc"><cite>BRYC</cite></a>. African Americans carry <b>24.0%</b> European ancestry on average, overwhelmingly through male lines during slavery. <b>3.5%</b> of self-identified European Americans carry &ge;1% African ancestry &mdash; but <b>13%</b> in South Carolina and <b>12%</b> in Louisiana.</p>
+    <p>Those cross-line figures carry a <b>&ge;</b> because they are <em>detection floors, not estimates</em>. Bryc's threshold is 1% of the genome. A single ancestor <i>g</i> generations back contributes 2<sup>&minus;<i>g</i></sup> on average &mdash; about <b>0.4%</b> at eight generations, <b>0.1%</b> at ten. Anyone whose only enslaved ancestor stands further back than roughly seven generations is invisible to the measurement and is counted as a negative. The true share is higher by an unknown amount, and this page will not guess at it.</p>
+    <p>Three things the model gets wrong on purpose, in the direction of understatement: generations are fixed at <b>28</b> years when the real interval drifts; pedigree collapse is handled by the occupancy model rather than measured; and lines are treated as exchangeable within a region when in fact slaveholding concentrated in exactly the families most likely to leave many descendants.</p>
+    <table class="m">
+      <thead><tr><th>1860</th><th class="n">Count</th><th class="n">Share</th></tr></thead>
+      <tbody id="mtable"></tbody>
+    </table>
+  </section>
+
+  <section class="blk" id="sources">
+    <h2 class="big">Sources</h2>
+    <ol class="srcs">
+      <li id="s-c1860"><code>C1860</code> &mdash; <i>Population of the United States in 1860: Compiled from the Original Returns of the Eighth Census.</i> Washington: GPO, 1864. Population and enslaved counts by state.</li>
+      <li id="s-a1860"><code>A1860</code> &mdash; <i>Agriculture of the United States in 1860.</i> Washington: GPO, 1864. Slaveholder returns from the slave schedules; 393,975 individual holders, and the share-of-families figures by state.</li>
+      <li id="s-hsus"><code>HSUS</code> &mdash; <i>Historical Statistics of the United States, Colonial Times to 1970.</i> Census Bureau, 1975. Series A 6&ndash;8 and Z 1&ndash;19 for the colonial and early national population.</li>
+      <li id="s-bryc"><code>BRYC</code> &mdash; Bryc K, Durand EY, Macpherson JM, Reich D, Mountain JL. &ldquo;The Genetic Ancestry of African Americans, Latinos, and European Americans across the United States.&rdquo; <i>Am. J. Hum. Genet.</i> 96(1):37&ndash;53, 2015.</li>
+      <li id="s-chang"><code>CHANG</code> &mdash; Chang JT. &ldquo;Recent common ancestors of all present-day individuals.&rdquo; <i>Adv. Appl. Prob.</i> 31:1002&ndash;1026, 1999.</li>
+    </ol>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>Roofbeam &middot; a toy</span><span>data pack: <a href="descent.json">descent.json</a></span></div></footer>
+<script src="app.js"></script>
+</body>
+</html>
