@@ -1,0 +1,102 @@
+{
+  "slug": "costs",
+  "kind": "page",
+  "path": "/costs/",
+  "title": "What this costs",
+  "page_title": "What this costs — Roofbeam",
+  "tagline": "What it costs to run roofbeam.net, itemised from the actual expense tracker — including what is deliberately not counted, and what is still unknown.",
+  "card_question": "What does it actually cost to keep the lights on here?",
+  "source": "Roofbeam LLC 2026 expense tracker · figures as recorded, never estimated",
+  "published": true,
+
+  "updated": "2026-09-14",
+  "tracker_total": 1438.86,
+  "tracker_note": "The expense tracker is a tax record — it counts every deductible business expense. This page counts only upkeep: what recurs to keep the site and the toys running. The two totals below add back to the tracker's, so nothing is hidden by the split.",
+  "scope": "This page covers roofbeam.net — the site and the toys on it. It does not cover onderdak.org ($23.99/yr), which Roofbeam bills for but which is a different project.",
+
+  "upkeep": [
+    {
+      "vendor": "GitHub Pages",
+      "what": "Static hosting — serves the site and every toy",
+      "paid_2026": 0.00,
+      "confidence": "verified",
+      "note": "Free tier. This is why the number below is small."
+    },
+    {
+      "vendor": "Cloud Identity Free",
+      "what": "Identity for the roofbeam.net organisation",
+      "paid_2026": 0.00,
+      "confidence": "verified",
+      "note": "Free edition, no charges."
+    },
+    {
+      "vendor": "roofbeam.net",
+      "what": "The domain",
+      "paid_2026": 57.00,
+      "confidence": "verified",
+      "note": "Registered 2026-07-29 through 2029-07-29 — about $19/yr spread across the three years."
+    },
+    {
+      "vendor": "Hetzner",
+      "what": "Cloud servers — the backend the toys will run on",
+      "paid_2026": 49.88,
+      "confidence": "observed, not steady",
+      "note": "Two charges: $15.29 in May, $34.59 in June. Nothing since. The monthly rate is not established yet."
+    },
+    {
+      "vendor": "Google",
+      "what": "Cloud storage",
+      "paid_2026": 19.99,
+      "confidence": "observed once",
+      "note": "A single charge in February. Whether it recurs is not established."
+    },
+    {
+      "vendor": "Google Workspace",
+      "what": "One mailbox on roofbeam.net",
+      "paid_2026": null,
+      "confidence": "amount not recorded",
+      "note": "The mailbox demonstrably exists — the domain publishes a Google DKIM key and routes mail to Google. What it costs has never been written down."
+    }
+  ],
+
+  "excluded": [
+    {
+      "vendor": "WordPress.com",
+      "amount": 630.00,
+      "why": "Unconfirmed. roofbeam.net runs on GitHub Pages, which is free — so this is most likely a personal blog, not this site. It is the largest line in the tracker and it is not counted here until that is settled."
+    },
+    {
+      "vendor": "Superwhisper",
+      "amount": 249.99,
+      "why": "Dictation software — a tool for doing the writing, not upkeep of the site."
+    },
+    {
+      "vendor": "Yubico",
+      "amount": 232.00,
+      "why": "Two hardware security keys. One-time, and hardware rather than upkeep."
+    },
+    {
+      "vendor": "Oregon Secretary of State",
+      "amount": 100.00,
+      "why": "The LLC formation filing. One-time, and it is the cost of the entity, not of the workshop."
+    },
+    {
+      "vendor": "OpenAI",
+      "amount": 80.00,
+      "why": "One-time credits, not a subscription."
+    },
+    {
+      "vendor": "Zotero",
+      "amount": 20.00,
+      "why": "Reference manager — a tool for the research, not upkeep of the site."
+    }
+  ],
+
+  "not_this_entity": [
+    {
+      "vendor": "roofbe.am",
+      "amount": 89.99,
+      "why": "Belongs to a previous LLC of the same name that was allowed to lapse. It is a different entity and its costs are not this workshop's. It is listed here because the record is confusing and the confusion should be public rather than private."
+    }
+  ]
+}

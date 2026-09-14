@@ -49,7 +49,7 @@ def manifests():
     manifest just as easily as a hand-edited one (a stale build, for
     instance)."""
     out = [(ROOT / "site.json", ROOT / "index.html")]
-    for pattern in ("toys/*/toy.json", "musings/*/musing.json"):
+    for pattern in ("toys/*/toy.json", "musings/*/musing.json", "*/page.json"):
         for m in sorted(ROOT.glob(pattern)):
             out.append((m, m.parent / "index.html"))
     return [(json.loads(m.read_text()), m, page) for m, page in out]
@@ -107,7 +107,8 @@ def card_svg(toy):
     kind = toy.get("kind", "toy" if toy["slug"] else "site")
     kicker = {"site": "roofbeam.net",
               "musing": "roofbeam.net  ·  a musing",
-              "toy": "roofbeam.net  ·  a toy"}[kind]
+              "toy": "roofbeam.net  ·  a toy",
+              "page": "roofbeam.net"}[kind]
 
     title_size = 84 if len(toy["title"]) <= 22 else 66
     title_lines = wrap(toy["title"], title_size, SERIF, text_w)
@@ -184,7 +185,8 @@ def head_block(toy):
     # A musing is a BlogPosting, a toy is a CreativeWork. Using CreativeWork
     # for prose would be true but useless — BlogPosting is what actually
     # tells a machine this is a dated piece of writing by a person.
-    kind = {"site": "WebSite", "musing": "BlogPosting", "toy": "CreativeWork"}[what]
+    kind = {"site": "WebSite", "musing": "BlogPosting",
+            "toy": "CreativeWork", "page": "WebPage"}[what]
 
     ld = {
         "@context": "https://schema.org",
@@ -212,13 +214,13 @@ def head_block(toy):
     if not toy["slug"]:
         ld.pop("headline", None)
 
-    kind = toy.get("kind", "toy" if toy["slug"] else "site")
     alt = {"site": "Roofbeam — a workshop in the open",
            "musing": f"{toy['title']} — a musing on roofbeam.net",
-           "toy": f"{toy['title']} — a toy on roofbeam.net"}[kind]
+           "toy": f"{toy['title']} — a toy on roofbeam.net",
+           "page": f"{toy['title']} — roofbeam.net"}[what]
     e = html.escape
     return f"""<link rel="canonical" href="{url}">
-<meta property="og:type" content="{'website' if not toy['slug'] else 'article'}">
+<meta property="og:type" content="{'article' if what in ('toy', 'musing') else 'website'}">
 <meta property="og:site_name" content="Roofbeam">
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">

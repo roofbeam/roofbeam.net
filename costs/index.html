@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What this costs — Roofbeam</title>
+<meta name="description" content="What it costs to run roofbeam.net, itemised from the actual expense tracker — including what is deliberately not counted, and what is still unknown.">
+
+<!-- share metadata — generated from costs/page.json by tools/share.py.
+     Do not hand-edit: change the record, re-run `tools/share.py cards`,
+     and `tools/share.py verify` will fail if these drift. -->
+<link rel="canonical" href="https://roofbeam.net/costs/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Roofbeam">
+<meta property="og:title" content="What this costs — Roofbeam">
+<meta property="og:description" content="What it costs to run roofbeam.net, itemised from the actual expense tracker — including what is deliberately not counted, and what is still unknown.">
+<meta property="og:url" content="https://roofbeam.net/costs/">
+<meta property="og:image" content="https://roofbeam.net/costs/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="What this costs — roofbeam.net">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What this costs — Roofbeam">
+<meta name="twitter:description" content="What it costs to run roofbeam.net, itemised from the actual expense tracker — including what is deliberately not counted, and what is still unknown.">
+<meta name="twitter:image" content="https://roofbeam.net/costs/og.png">
+<meta name="author" content="Jeremy Parra">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "What this costs",
+  "headline": "What this costs",
+  "description": "What it costs to run roofbeam.net, itemised from the actual expense tracker — including what is deliberately not counted, and what is still unknown.",
+  "url": "https://roofbeam.net/costs/",
+  "image": "https://roofbeam.net/costs/og.png",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Jeremy Parra",
+    "url": "https://roofbeam.net/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Roofbeam",
+    "url": "https://roofbeam.net/"
+  }
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root { --bg:#f6f3ec; --panel:#fffdf8; --ink:#23201b; --muted:#6b6459;
+  --line:#e2dccf; --accent:#b4531f; --accent-soft:#eadfce; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg:#17150f; --panel:#201d16; --ink:#ece7db; --muted:#a49b89;
+  --line:#322d23; --accent:#e08a4e; --accent-soft:#2b2418; } }
+:root[data-theme="dark"] { --bg:#17150f; --panel:#201d16; --ink:#ece7db;
+  --muted:#a49b89; --line:#322d23; --accent:#e08a4e; --accent-soft:#2b2418; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); line-height:1.65;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif; }
+a { color:var(--accent); text-decoration:none; } a:hover { text-decoration:underline; }
+header { border-bottom:1px solid var(--line); }
+.nav { display:flex; justify-content:space-between; align-items:baseline;
+  padding:16px 24px; max-width:760px; margin:0 auto; }
+.brand { font-family:Fraunces,Georgia,serif; font-weight:600; font-size:1.1rem; color:var(--ink); }
+.brand span { color:var(--accent); }
+.nav a.link { color:var(--muted); font-size:.9rem; margin-left:20px; }
+.nav a.link:hover { color:var(--ink); text-decoration:none; }
+main { max-width:760px; margin:0 auto; padding:56px 24px 96px; }
+h1 { font-family:Fraunces,Georgia,serif; font-weight:600; font-size:clamp(2rem,5vw,2.6rem);
+  letter-spacing:-.02em; margin:0 0 14px; }
+h2 { font-family:Fraunces,Georgia,serif; font-weight:600; font-size:1.35rem;
+  margin:0 0 6px; letter-spacing:-.01em; }
+.lede { color:var(--muted); max-width:54ch; margin:0 0 14px; font-size:1.05rem; }
+.scope { color:var(--muted); max-width:56ch; margin:0 0 44px; font-size:.92rem;
+  border-left:2px solid var(--line); padding-left:14px; }
+section { margin:0 0 52px; }
+.sub { color:var(--muted); font-size:.93rem; margin:0 0 20px; max-width:56ch; }
+ul { list-style:none; padding:0; margin:0; }
+li { border-bottom:1px solid var(--line); padding:16px 0; }
+li:last-child { border-bottom:none; }
+.row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; }
+.left { min-width:0; }
+.vendor { font-weight:600; }
+.what { color:var(--muted); font-size:.92rem; margin-top:2px; }
+.amt { font-variant-numeric:tabular-nums; white-space:nowrap; font-weight:500; }
+.conf { display:inline-block; font-size:.66rem; letter-spacing:.07em; text-transform:uppercase;
+  color:var(--accent); background:var(--accent-soft); padding:2px 7px; border-radius:999px;
+  margin-left:9px; vertical-align:1px; }
+.note { color:var(--muted); font-size:.88rem; margin:8px 0 0; max-width:60ch; }
+.total { display:flex; justify-content:space-between; align-items:baseline; gap:16px;
+  background:var(--panel); border:1px solid var(--line); border-radius:14px;
+  padding:18px 20px; margin-top:22px; }
+.total .k { font-weight:600; }
+.total .v { font-family:Fraunces,Georgia,serif; font-size:1.7rem; font-variant-numeric:tabular-nums;
+  white-space:nowrap; }
+.caveat { background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--accent);
+  border-radius:10px; padding:16px 18px; margin-top:18px; }
+.caveat p { margin:0; font-size:.92rem; color:var(--muted); }
+.caveat p + p { margin-top:10px; }
+.caveat strong { color:var(--ink); }
+.check { border-top:1px solid var(--line); margin-top:44px; padding-top:22px;
+  color:var(--muted); font-size:.88rem; }
+.check table { border-collapse:collapse; margin:12px 0 0; }
+.check td { padding:3px 0; }
+.check td.n { text-align:right; padding-left:18px; font-variant-numeric:tabular-nums; color:var(--ink); }
+.check tr.sum td { border-top:1px solid var(--line); padding-top:7px; font-weight:600; }
+footer { border-top:1px solid var(--line); margin-top:56px; padding-top:22px;
+  color:var(--muted); font-size:.85rem; }
+@media (max-width:520px) {
+  .row { flex-direction:column; gap:4px; }
+  .amt { font-size:1.05rem; }
+  .total { flex-direction:column; gap:4px; }
+}
+</style>
+</head>
+<body>
+<header><nav class="nav">
+  <a class="brand" href="/">Roof<span>beam</span></a>
+  <span><a class="link" href="/#projects">Projects</a><a class="link" href="/">Home</a></span>
+</nav></header>
+<main>
+  <h1>What this costs</h1>
+  <p class="lede">The expense tracker is a tax record — it counts every deductible business expense. This page counts only upkeep: what recurs to keep the site and the toys running. The two totals below add back to the tracker&#x27;s, so nothing is hidden by the split.</p>
+  <p class="scope">This page covers roofbeam.net — the site and the toys on it. It does not cover onderdak.org ($23.99/yr), which Roofbeam bills for but which is a different project.</p>
+
+  <section>
+    <h2>Upkeep</h2>
+    <p class="sub">What recurs to keep the site and the toys running.</p>
+    <ul>
+      <li>
+        <div class="row">
+          <div class="left"><span class="vendor">GitHub Pages</span><span class="conf">verified</span><div class="what">Static hosting — serves the site and every toy</div></div>
+          <div class="amt">$0.00</div>
+        </div>
+        <p class="note">Free tier. This is why the number below is small.</p>
+      </li>
+      <li>
+        <div class="row">
+          <div class="left"><span class="vendor">Cloud Identity Free</span><span class="conf">verified</span><div class="what">Identity for the roofbeam.net organisation</div></div>
+          <div class="amt">$0.00</div>
+        </div>
+        <p class="note">Free edition, no charges.</p>
+      </li>
+      <li>
+        <div class="row">
+          <div class="left"><span class="vendor">roofbeam.net</span><span class="conf">verified</span><div class="what">The domain</div></div>
+          <div class="amt">$57.00</div>
+        </div>
+        <p class="note">Registered 2026-07-29 through 2029-07-29 — about $19/yr spread across the three years.</p>
+      </li>
+      <li>
+        <div class="row">
+          <div class="left"><span class="vendor">Hetzner</span><span class="conf">observed, not steady</span><div class="what">Cloud servers — the backend the toys will run on</div></div>
+          <div class="amt">$49.88</div>
+        </div>
+        <p class="note">Two charges: $15.29 in May, $34.59 in June. Nothing since. The monthly rate is not established yet.</p>
+      </li>
+      <li>
+        <div class="row">
+          <div class="left"><span class="vendor">Google</span><span class="conf">observed once</span><div class="what">Cloud storage</div></div>
+          <div class="amt">$19.99</div>
+        </div>
+        <p class="note">A single charge in February. Whether it recurs is not established.</p>
+      </li>
+      <li>
+        <div class="row">
+          <div class="left"><span class="vendor">Google Workspace</span><span class="conf">amount not recorded</span><div class="what">One mailbox on roofbeam.net</div></div>
+          <div class="amt">not recorded</div>
+        </div>
+        <p class="note">The mailbox demonstrably exists — the domain publishes a Google DKIM key and routes mail to Google. What it costs has never been written down.</p>
+      </li>
+    </ul>
+    <div class="total"><span class="k">Paid so far in 2026</span><span class="v">$126.87</span></div>
+    <div class="caveat">
+      <p><strong>This is not an annual rate, and it would be dishonest to present it as one.</strong>
+      Two of the six lines above are unresolved: the Workspace mailbox has never had its
+      price written down, and the Hetzner charges vary month to month with a gap since June.
+      Until both are settled, what it costs per year to run this is genuinely unknown.</p>
+      <p>The domain is the other distortion, in the opposite direction: $57.00 was paid once
+      and covers three years, so it flatters the annual figure by about $38.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>What isn&rsquo;t counted</h2>
+    <p class="sub">Real expenses, deductible against the business, and not upkeep of this
+    site. Counting them here would inflate the number, so they are listed instead.</p>
+    <ul>
+      <li>
+        <div class="row">
+          <div class="left"><span class="vendor">WordPress.com</span></div>
+          <div class="amt">$630.00</div>
+        </div>
+        <p class="note">Unconfirmed. roofbeam.net runs on GitHub Pages, which is free — so this is most likely a personal blog, not this site. It is the largest line in the tracker and it is not counted here until that is settled.</p>
+      </li>
+      <li>
+        <div class="row">
+          <div class="left"><span class="vendor">Superwhisper</span></div>
+          <div class="amt">$249.99</div>
+        </div>
+        <p class="note">Dictation software — a tool for doing the writing, not upkeep of the site.</p>
+      </li>
+      <li>
+        <div class="row">
+          <div class="left"><span class="vendor">Yubico</span></div>
+          <div class="amt">$232.00</div>
+        </div>
+        <p class="note">Two hardware security keys. One-time, and hardware rather than upkeep.</p>
+      </li>
+      <li>
+        <div class="row">
+          <div class="left"><span class="vendor">Oregon Secretary of State</span></div>
+          <div class="amt">$100.00</div>
+        </div>
+        <p class="note">The LLC formation filing. One-time, and it is the cost of the entity, not of the workshop.</p>
+      </li>
+      <li>
+        <div class="row">
+          <div class="left"><span class="vendor">OpenAI</span></div>
+          <div class="amt">$80.00</div>
+        </div>
+        <p class="note">One-time credits, not a subscription.</p>
+      </li>
+      <li>
+        <div class="row">
+          <div class="left"><span class="vendor">Zotero</span></div>
+          <div class="amt">$20.00</div>
+        </div>
+        <p class="note">Reference manager — a tool for the research, not upkeep of the site.</p>
+      </li>
+    </ul>
+    <div class="total"><span class="k">Excluded</span><span class="v">$1,311.99</span></div>
+  </section>
+
+  <section>
+    <h2>Not this entity</h2>
+    <p class="sub">There was an earlier Roofbeam LLC, and it was allowed to lapse.
+    Artifacts of it still surface and still bill.</p>
+    <ul>
+      <li>
+        <div class="row">
+          <div class="left"><span class="vendor">roofbe.am</span></div>
+          <div class="amt">$89.99</div>
+        </div>
+        <p class="note">Belongs to a previous LLC of the same name that was allowed to lapse. It is a different entity and its costs are not this workshop&#x27;s. It is listed here because the record is confusing and the confusion should be public rather than private.</p>
+      </li>
+    </ul>
+  </section>
+
+  <div class="check">
+    The tracker records <strong>$1,438.86</strong> of deductible expense for 2026.
+    Nothing above is dropped &mdash; the split accounts for all of it:
+    <table>
+      <tr><td>Upkeep</td><td class="n">$126.87</td></tr>
+      <tr><td>Excluded</td><td class="n">$1,311.99</td></tr>
+      <tr class="sum"><td>Tracker total</td><td class="n">$1,438.86</td></tr>
+    </table>
+  </div>
+
+  <footer>
+    Roofbeam LLC 2026 expense tracker · figures as recorded, never estimated &middot; last updated 2026-09-14.
+    Figures are as recorded, never estimated; where something is unknown it says so.
+  </footer>
+</main>
+</body>
+</html>
