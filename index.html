@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Roofbeam — Jeremy Parra</title>
-  <meta name="description" content="A roof over the things I'm making — projects, writing, and a reading list from Jeremy Parra." />
+  <title>Roofbeam — a workshop held in common</title>
+  <meta name="description" content="A few people building things in the open — the projects, the thinking underneath them, and how the work is governed. All of it visible before you join anything." />
 
 <!-- share metadata — generated from site.json by tools/share.py.
      Do not hand-edit: change the manifest, re-run `tools/share.py cards`,
@@ -12,16 +12,16 @@
 <link rel="canonical" href="https://roofbeam.net/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Roofbeam">
-<meta property="og:title" content="Roofbeam — Jeremy Parra">
-<meta property="og:description" content="A roof over the things I&#x27;m making — small projects, toys, notes I&#x27;m thinking through, and what I&#x27;m reading.">
+<meta property="og:title" content="Roofbeam — a workshop held in common">
+<meta property="og:description" content="A few people building things in the open — the projects, the thinking underneath them, and how the work is governed. All of it visible before you join anything.">
 <meta property="og:url" content="https://roofbeam.net/">
 <meta property="og:image" content="https://roofbeam.net/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Roofbeam — a workshop in the open">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Roofbeam — Jeremy Parra">
-<meta name="twitter:description" content="A roof over the things I&#x27;m making — small projects, toys, notes I&#x27;m thinking through, and what I&#x27;m reading.">
+<meta name="twitter:title" content="Roofbeam — a workshop held in common">
+<meta name="twitter:description" content="A few people building things in the open — the projects, the thinking underneath them, and how the work is governed. All of it visible before you join anything.">
 <meta name="twitter:image" content="https://roofbeam.net/og.png">
 <meta name="author" content="Jeremy Parra">
 <script type="application/ld+json">
@@ -29,7 +29,7 @@
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Roofbeam",
-  "description": "A roof over the things I'm making — small projects, toys, notes I'm thinking through, and what I'm reading.",
+  "description": "A few people building things in the open — the projects, the thinking underneath them, and how the work is governed. All of it visible before you join anything.",
   "url": "https://roofbeam.net/",
   "image": "https://roofbeam.net/og.png",
   "inLanguage": "en",
@@ -93,6 +93,14 @@
     .brand span { color: var(--accent); }
     .nav a.link { color: var(--muted); font-size: .93rem; margin-left: 22px; }
     .nav a.link:hover { color: var(--ink); text-decoration: none; }
+    .nav .links { display: flex; align-items: center; white-space: nowrap; overflow-x: auto;
+                  scrollbar-width: none; -ms-overflow-style: none; }
+    .nav .links::-webkit-scrollbar { display: none; }
+    @media (max-width: 560px) {
+      .nav { padding: 12px 16px; gap: 14px; }
+      .nav a.link { margin-left: 16px; font-size: .88rem; }
+      section { scroll-margin-top: 60px; }
+    }
 
     /* Hero */
     .hero { padding: 84px 0 56px; }
@@ -100,7 +108,7 @@
     .hero p { font-size: 1.2rem; color: var(--muted); max-width: 56ch; margin: 22px 0 0; }
     .kicker { text-transform: uppercase; letter-spacing: .14em; font-size: .74rem; font-weight: 600; color: var(--accent); margin: 0 0 18px; }
 
-    section { padding: 40px 0; border-top: 1px solid var(--line); }
+    section { padding: 40px 0; border-top: 1px solid var(--line); scroll-margin-top: 72px; }
     .sec-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px; gap: 16px; }
     .sec-head h2 { font-size: 1.6rem; }
     .sec-head .more { font-size: .9rem; color: var(--muted); }
@@ -121,8 +129,8 @@
     .list li:last-child { border-bottom: none; }
     .list .t { color: var(--ink); font-weight: 500; }
     .list .d { color: var(--muted); font-size: .88rem; white-space: nowrap; }
-    .reading .t { font-weight: 400; }
-    .reading .by { color: var(--muted); font-style: italic; }
+    .grounding .t { font-weight: 400; }
+    .grounding .by { color: var(--muted); font-style: italic; }
 
     footer { border-top: 1px solid var(--line); padding: 36px 0 56px; color: var(--muted); font-size: .88rem; }
     footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
@@ -161,11 +169,12 @@
   <header>
     <nav class="nav">
       <a class="brand" href="/">Roof<span>beam</span></a>
-      <div>
-        <a class="link" href="#projects">Projects</a>
+      <div class="links">
+        <a class="link" href="#work">Work</a>
+        <a class="link" href="#thesis">Thesis</a>
+        <a class="link" href="#governance">Governance</a>
         <a class="link" href="#writing">Writing</a>
-        <a class="link" href="#reading">Reading</a>
-        <a class="link" href="#hello">Say hello</a>
+        <a class="link" href="#join">Join</a>
       </div>
     </nav>
   </header>
@@ -173,17 +182,17 @@
   <main>
     <div class="wrap">
       <section class="hero" style="border-top:none">
-        <p class="kicker">Jeremy Parra</p>
-        <h1>A roof over the things I'm making.</h1>
-        <p>A workshop in the open — small projects, toy ideas I play with, notes I'm thinking through, and what I'm reading. Roofbeam is where it all shelters while it grows.</p>
+        <p class="kicker">A workshop held in common</p>
+        <h1>Raise the roof to make room.</h1>
+        <p>Roofbeam is where a few people build things in the open — the projects themselves, the thinking underneath them, and how the work is governed. All of it is visible before you join anything.</p>
       </section>
     </div>
 
     <div class="wrap">
-      <section id="projects">
+      <section id="work">
         <div class="sec-head">
-          <h2>Projects</h2>
-          <span class="more">things I'm playing with</span>
+          <h2>What's being built</h2>
+          <span class="more">in the open</span>
         </div>
         <div class="grid">
           <a class="card" href="/toys/where-americans-resettle/">
@@ -196,12 +205,33 @@
             <h3>The Tree of Human Thought</h3>
             <p>An influence-genealogy of ideas — who shaped whom, from the dawn of writing to now. Thinkers placed by era and domain; the documented record in gray, the cross-tradition bridges in amber.</p>
           </a>
-          <article class="card">
-            <span class="tag">Soon</span>
-            <h3>More in the workshop</h3>
-            <p>Things are being built that aren't public yet. Check back — the roof's going up.</p>
-          </article>
         </div>
+      </section>
+
+      <section id="thesis">
+        <div class="sec-head">
+          <h2>The thesis</h2>
+          <span class="more">why any of this</span>
+        </div>
+        <p style="color:var(--ink);max-width:58ch;margin:0 0 16px;font-size:1.05rem">The name comes from Sappho by way of Salinger — <em>Raise High the Roof Beam, Carpenters</em>. When the giant is coming, the carpenters raise the roof to make room for him.</p>
+        <p style="color:var(--muted);max-width:58ch;margin:0 0 16px">That is the wager: <strong>the world should make space for its giants rather than cut them down to fit the room</strong> — outward, in what gets built and who gets to build it, and inward, in the room a person keeps for themselves.</p>
+        <p style="color:var(--muted);max-width:58ch;margin:0 0 22px">The work here follows from that. Tools that give people back the power to act on what they already know. Ideas put out in the open so they can be argued with. Nothing here is built to be admired.</p>
+        <p style="color:var(--muted);max-width:58ch;margin:0 0 12px;font-size:.95rem">The ground it is worked out on, mostly Stoic:</p>
+        <ul class="list grounding">
+          <li><span class="t">Discourses &amp; Enchiridion <span class="by">— Epictetus</span></span></li>
+          <li><span class="t">Letters on Ethics <span class="by">— Seneca</span></span></li>
+          <li><span class="t">Meditations <span class="by">— Marcus Aurelius</span></span></li>
+          <li><span class="t">The Inner Citadel <span class="by">— Pierre Hadot</span></span></li>
+        </ul>
+      </section>
+
+      <section id="governance">
+        <div class="sec-head">
+          <h2>How it's governed</h2>
+          <span class="more">who decides what</span>
+        </div>
+        <p style="color:var(--muted);max-width:58ch;margin:0 0 16px">Roofbeam LLC is an Oregon company, formed in 2026. It holds the costs and the agreements so the projects underneath it do not each have to.</p>
+        <p style="color:var(--muted);max-width:58ch;margin:0 0 16px">The work happens in the open. <strong>Membership is a separate and deliberate step</strong> — looking is easy, joining is a choice, and it is meant to mean something.</p>
       </section>
 
       <section id="writing">
@@ -210,35 +240,18 @@
           <a class="more" href="/musings/">all musings &rarr;</a>
         </div>
         <ul class="list">
-          <li><a class="t" href="/toys/tree/">The Tree of Human Thought</a><span class="d">musing &middot; a map</span></li>
           <!-- musings:start -->
-        <!-- musings:end -->
+          <li><span class="t">Nothing published yet</span><span class="d"></span></li>
+          <!-- musings:end -->
         </ul>
       </section>
 
-      <section id="reading" class="reading">
+      <section id="join">
         <div class="sec-head">
-          <h2>Reading</h2>
-          <span class="more">on the table now</span>
+          <h2>Join</h2>
+          <span class="more">if the work is yours too</span>
         </div>
-        <p style="color:var(--muted);max-width:58ch;margin:0 0 18px">Working through the Stoics — the doctrine, not just the mood.</p>
-        <ul class="list">
-          <li><span class="t">Discourses &amp; Enchiridion <span class="by">— Epictetus</span></span><span class="d">reading</span></li>
-          <li><span class="t">Letters on Ethics (to Lucilius) <span class="by">— Seneca</span></span><span class="d">reading</span></li>
-          <li><span class="t">On the Shortness of Life <span class="by">— Seneca</span></span><span class="d">on the list</span></li>
-          <li><span class="t">On Duties <span class="by">— Cicero</span></span><span class="d">on the list</span></li>
-          <li><span class="t">The Inner Citadel <span class="by">— Pierre Hadot</span></span><span class="d">on the list</span></li>
-          <li><span class="t">Stoicism <span class="by">— John Sellars</span></span><span class="d">on the list</span></li>
-          <li><span class="t">Meditations <span class="by">— Marcus Aurelius</span></span><span class="d">companion</span></li>
-        </ul>
-      </section>
-
-      <section id="hello">
-        <div class="sec-head">
-          <h2>Say hello</h2>
-          <span class="more">who are you?</span>
-        </div>
-        <p style="color:var(--muted);max-width:58ch;margin:0 0 20px">Tell me who you are and what draws you to what I'm building — I read every one. If you'd like, I'll keep you posted as things take shape. No spam, ever.</p>
+        <p style="color:var(--muted);max-width:58ch;margin:0 0 20px">Everything above is public and stays public — you do not need an account to read any of it. The working environment is the other side of the line: project channels, the conversation as it happens, and the people doing it. If you want to be in that room, say so here and we&rsquo;ll talk. No spam, ever.</p>
         <form id="hello-form" class="hello-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
           <div class="frow">
             <label class="vh" for="hf-name">Your name</label>
@@ -246,13 +259,13 @@
             <label class="vh" for="hf-email">Email</label>
             <input id="hf-email" name="email" type="email" placeholder="Email" autocomplete="email" required />
           </div>
-          <label class="vh" for="hf-interest">What are you interested in, or working on?</label>
-          <textarea id="hf-interest" name="interest" rows="3" placeholder="What are you interested in, or working on?"></textarea>
+          <label class="vh" for="hf-interest">What are you working on, and what draws you to this?</label>
+          <textarea id="hf-interest" name="interest" rows="3" placeholder="What are you working on, and what draws you to this?"></textarea>
           <div class="hp" aria-hidden="true">
             <label for="hf-company">Leave this field empty</label>
             <input id="hf-company" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
           </div>
-          <label class="opt"><input type="checkbox" name="keep_posted" value="yes" /> <span>Keep me posted on what you're building</span></label>
+          <label class="opt"><input type="checkbox" name="keep_posted" value="yes" /> <span>Keep me posted as this takes shape</span></label>
           <button type="submit">Send</button>
           <p class="form-msg" role="status" aria-live="polite" tabindex="-1" hidden></p>
         </form>
@@ -293,9 +306,9 @@
       try {
         const r = await fetch(hf.action, { method: 'POST', body: new FormData(hf), headers: { Accept: 'application/json' } });
         if (!r.ok) throw new Error();
-        hf.reset(); say('ok', "Thanks — I'll be in touch.");
+        hf.reset(); say('ok', "Thanks — we'll be in touch.");
       } catch {
-        say('err', 'Something went off — try again, or email me directly.');
+        say('err', 'Something went off — try again in a moment.');
       }
       btn.disabled = false; btn.textContent = label;
     });
