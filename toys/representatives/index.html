@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Meet Your Representatives</title>
+<meta name="description" content="The people who write your laws, one card at a time — federal and state. Not thumbs up or thumbs down: learn more, or skip.">
+<meta name="robots" content="noindex">
+
+<!-- share metadata — generated from toys/representatives/toy.json by tools/share.py.
+     Do not hand-edit: change the manifest, re-run `tools/share.py cards`,
+     and `tools/share.py verify` will fail if these drift. -->
+<link rel="canonical" href="https://roofbeam.net/toys/representatives/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Roofbeam">
+<meta property="og:title" content="Meet Your Representatives">
+<meta property="og:description" content="The people who write your laws, one card at a time — federal and state. Not thumbs up or thumbs down: learn more, or skip.">
+<meta property="og:url" content="https://roofbeam.net/toys/representatives/">
+<meta property="og:image" content="https://roofbeam.net/toys/representatives/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Meet Your Representatives — a toy on roofbeam.net">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Meet Your Representatives">
+<meta name="twitter:description" content="The people who write your laws, one card at a time — federal and state. Not thumbs up or thumbs down: learn more, or skip.">
+<meta name="twitter:image" content="https://roofbeam.net/toys/representatives/og.png">
+<meta name="author" content="Jeremy Parra">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Meet Your Representatives",
+  "headline": "Meet Your Representatives",
+  "description": "The people who write your laws, one card at a time — federal and state. Not thumbs up or thumbs down: learn more, or skip.",
+  "url": "https://roofbeam.net/toys/representatives/",
+  "image": "https://roofbeam.net/toys/representatives/og.png",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Jeremy Parra",
+    "url": "https://roofbeam.net/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Roofbeam",
+    "url": "https://roofbeam.net/"
+  },
+  "dateCreated": "2026-10-06",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Roofbeam",
+    "url": "https://roofbeam.net/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f6f3ec;
+  --panel: #fffdf8;
+  --ink: #23201b;
+  --muted: #6b6459;
+  --line: #e2dccf;
+  --accent: #b4531f;
+  --accent-soft: #eadfce;
+  --shadow: 0 1px 2px rgba(35,32,27,.06), 0 12px 32px rgba(35,32,27,.10);
+  --radius: 18px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17150f; --panel: #201d16; --ink: #ece7db; --muted: #a49b89;
+    --line: #322d23; --accent: #e08a4e; --accent-soft: #2b2418;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px rgba(0,0,0,.4);
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  line-height: 1.5; -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1, h2, h3 { font-family: Fraunces, Georgia, serif; font-weight: 600; line-height: 1.15; margin: 0; }
+.wrap { max-width: 560px; margin: 0 auto; padding: 0 16px; }
+
+header { padding: 20px 0 8px; }
+.brand { font-family: Fraunces, serif; font-weight: 600; color: var(--ink); font-size: 1rem; }
+.brand span { color: var(--accent); }
+.kicker { text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; font-weight: 600; color: var(--accent); margin: 28px 0 10px; }
+h1 { font-size: clamp(1.9rem, 7vw, 2.6rem); letter-spacing: -.02em; }
+.lede { color: var(--muted); margin: 12px 0 0; font-size: 1.02rem; }
+
+/* Finder */
+.finder { margin: 24px 0 8px; display: grid; gap: 10px; }
+.row { display: flex; gap: 8px; }
+.row > input, .row > select { flex: 1; min-width: 0; }
+input, select, button {
+  font: inherit; color: var(--ink); background: var(--panel);
+  border: 1px solid var(--line); border-radius: 12px; padding: 11px 14px;
+}
+input:focus, select:focus, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+button { cursor: pointer; font-weight: 600; white-space: nowrap; }
+button.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.or { text-align: center; color: var(--muted); font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
+.note { font-size: .82rem; color: var(--muted); margin: 0; }
+.status { min-height: 1.4em; font-size: .9rem; color: var(--muted); margin: 6px 0 0; }
+.status.err { color: var(--accent); }
+
+.chips { display: flex; gap: 6px; flex-wrap: wrap; margin: 14px 0 0; }
+.chip { font-size: .82rem; font-weight: 500; padding: 6px 12px; border-radius: 999px; }
+.chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--ink); }
+
+/* Deck */
+.deck-area { margin: 18px 0 0; }
+.progress { display: flex; justify-content: space-between; font-size: .82rem; color: var(--muted); margin-bottom: 10px; }
+.deck { position: relative; height: 470px; touch-action: pan-y; }
+.card {
+  position: absolute; inset: 0; background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
+  display: flex; flex-direction: column; user-select: none; -webkit-user-select: none;
+  transition: transform .28s cubic-bezier(.2,.8,.2,1), opacity .28s;
+  will-change: transform;
+}
+.card.under { transform: scale(.955) translateY(14px); opacity: .7; pointer-events: none; }
+.card.dragging { transition: none; cursor: grabbing; }
+.photo {
+  height: 240px; background: var(--accent-soft) center 12% / cover no-repeat; flex: none;
+  display: flex; align-items: center; justify-content: center;
+  font-family: Fraunces, serif; font-size: 4rem; color: var(--accent);
+}
+.body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; min-height: 0; }
+.role { font-size: .74rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.card h2 { font-size: 1.65rem; letter-spacing: -.01em; }
+.seat { color: var(--muted); font-size: .95rem; }
+.facts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+.fact { font-size: .8rem; background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; }
+.stamp {
+  position: absolute; top: 22px; padding: 6px 12px; border: 2px solid; border-radius: 8px;
+  font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: .85rem;
+  opacity: 0; background: var(--panel);
+}
+.stamp.learn { left: 18px; color: var(--accent); transform: rotate(-8deg); }
+.stamp.skip { right: 18px; color: var(--muted); transform: rotate(8deg); }
+
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0 0; }
+.actions button { padding: 14px; font-size: 1rem; }
+.actions .learn { background: var(--accent); border-color: var(--accent); color: #fff; }
+.keys { text-align: center; font-size: .75rem; color: var(--muted); margin: 8px 0 0; }
+kbd { font: inherit; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; }
+
+.empty { text-align: center; padding: 40px 12px; color: var(--muted); }
+
+/* Summary */
+.summary h2 { font-size: 1.5rem; margin: 6px 0 10px; }
+.met { list-style: none; padding: 0; margin: 12px 0; display: grid; gap: 8px; }
+.met li { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.met .who { font-weight: 600; }
+.met .what { font-size: .82rem; color: var(--muted); }
+.met button { font-size: .8rem; padding: 6px 10px; }
+
+/* Learn-more sheet */
+dialog {
+  border: none; padding: 0; background: var(--panel); color: var(--ink);
+  width: min(560px, 100vw); max-height: 92vh; border-radius: 20px 20px 0 0;
+  margin: auto auto 0; box-shadow: var(--shadow);
+}
+@media (min-width: 640px) { dialog { border-radius: 20px; margin: auto; } }
+dialog::backdrop { background: rgba(23,21,15,.45); }
+.sheet { padding: 22px 22px 26px; }
+.sheet-head { display: flex; gap: 14px; align-items: center; }
+.sheet-head .mini { width: 64px; height: 78px; border-radius: 10px; background: var(--accent-soft) center 22% / cover; flex: none; display: flex; align-items: center; justify-content: center; font-family: Fraunces, serif; font-size: 1.6rem; color: var(--accent); }
+.sheet h2 { font-size: 1.4rem; }
+.sheet h3 { font-family: Inter, sans-serif; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 22px 0 8px; font-weight: 600; }
+.sheet ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.sheet li { font-size: .93rem; }
+.sheet .tag { font-size: .72rem; font-weight: 600; color: var(--accent); margin-left: 6px; }
+.links { display: flex; flex-wrap: wrap; gap: 8px; }
+.links a { font-size: .85rem; border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; }
+.links a:hover { border-color: var(--accent); text-decoration: none; }
+.thin { color: var(--muted); font-size: .88rem; }
+.sheet-actions { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 10px; margin-top: 24px; }
+
+footer { margin: 48px 0 32px; padding-top: 18px; border-top: 1px solid var(--line); font-size: .8rem; color: var(--muted); }
+footer p { margin: 0 0 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><a class="brand" href="/">roof<span>beam</span></a></header>
+
+  <p class="kicker">A toy · draft</p>
+  <h1>Meet your representatives</h1>
+  <p class="lede">The people who write your laws, one card at a time — federal and state. Not thumbs up or thumbs down. Just: <em>learn more</em>, or <em>skip</em>.</p>
+
+  <form class="finder" id="finder" autocomplete="on">
+    <div class="row">
+      <input id="addr" name="street-address" autocomplete="street-address" placeholder="Your street address, city, state" aria-label="Your street address">
+      <button class="primary" type="submit">Find mine</button>
+    </div>
+    <p class="note">Your address goes to the U.S. Census Bureau's geocoder to find your districts. Roofbeam never sees it.</p>
+    <div class="or">or browse a whole state</div>
+    <select id="state" aria-label="Browse a state"><option value="">Choose a state…</option></select>
+    <p class="status" id="status" role="status"></p>
+  </form>
+
+  <div id="deck-area" class="deck-area" hidden>
+    <div class="chips" role="group" aria-label="Which level">
+      <button class="chip" data-level="all" aria-pressed="true">Everyone</button>
+      <button class="chip" data-level="federal" aria-pressed="false">Congress</button>
+      <button class="chip" data-level="state" aria-pressed="false">Statehouse</button>
+    </div>
+    <div style="height:14px"></div>
+    <div class="progress"><span id="where"></span><span id="count"></span></div>
+    <div class="deck" id="deck"></div>
+    <div class="actions" id="actions">
+      <button class="skip" id="btn-skip">Skip</button>
+      <button class="learn" id="btn-learn">Learn more</button>
+    </div>
+    <p class="keys">Swipe right to learn more, left to skip · <kbd>→</kbd> <kbd>←</kbd></p>
+  </div>
+
+  <div id="summary" class="summary" hidden></div>
+
+  <footer>
+    <p>Federal: <a href="https://github.com/unitedstates/congress-legislators">unitedstates/congress-legislators</a> (public domain). State: <a href="https://openstates.org/data/">Open States</a> (CC0). Districts: <a href="https://geocoding.geo.census.gov/">U.S. Census geocoder</a>. <span id="built"></span></p>
+    <p>State legislators come with fewer facts than members of Congress — Open States' bulk files don't carry tenure or committees. That gap is the data's, not a judgement.</p>
+    <p>Party is shown as plain text, with no colours. Nothing here ranks anyone.</p>
+  </footer>
+</div>
+
+<dialog id="sheet"><div class="sheet" id="sheet-body" tabindex="-1" style="outline:none"></div></dialog>
+
+<script>
+(() => {
+  const $ = (s, el = document) => el.querySelector(s);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const safeUrl = u => /^https?:\/\//i.test(u || "") ? u : "";
+  const initials = n => n.split(/\s+/).filter(Boolean).map(w => w[0]).filter(c => /[A-Z]/i.test(c)).slice(0, 2).join("");
+  const norm = s => String(s ?? "").toLowerCase().replace(/&/g, "and").replace(/district/g, "")
+    .replace(/[^a-z0-9]+/g, " ").trim().split(" ").map(t => t.replace(/^0+(?=\d)/, "")).join(" ");
+
+  const state = {
+    all: [],          // everyone loaded for the current state/address
+    level: "all",
+    deck: [],         // filtered queue
+    i: 0,
+    met: [], skipped: [],
+    where: "",
+  };
+
+  // ---------- data ----------
+  const cache = {};
+  async function loadState(code) {
+    if (!cache[code]) cache[code] = fetch(`data/${code}.json`).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+    return cache[code];
+  }
+
+  fetch("data/states.json").then(r => r.json()).then(idx => {
+    const sel = $("#state");
+    for (const s of idx.states) sel.add(new Option(`${s.name} — ${s.count} legislators`, s.code));
+    $("#built").textContent = `Data built ${idx.built}.`;
+  });
+
+  // Census geocoder answers JSONP but not CORS — so: a script tag.
+  let jsonpN = 0;
+  function jsonp(url) {
+    return new Promise((resolve, reject) => {
+      const cb = `__census${++jsonpN}`;
+      const s = document.createElement("script");
+      const done = () => { delete window[cb]; s.remove(); clearTimeout(t); };
+      const t = setTimeout(() => { done(); reject(new Error("timeout")); }, 15000);
+      window[cb] = d => { done(); resolve(d); };
+      s.onerror = () => { done(); reject(new Error("network")); };
+      s.src = `${url}&format=jsonp&callback=${cb}`;
+      document.head.appendChild(s);
+    });
+  }
+
+  const FIPS = {"01":"AL","02":"AK","04":"AZ","05":"AR","06":"CA","08":"CO","09":"CT","10":"DE","11":"DC","12":"FL","13":"GA","15":"HI","16":"ID","17":"IL","18":"IN","19":"IA","20":"KS","21":"KY","22":"LA","23":"ME","24":"MD","25":"MA","26":"MI","27":"MN","28":"MS","29":"MO","30":"MT","31":"NE","32":"NV","33":"NH","34":"NJ","35":"NM","36":"NY","37":"NC","38":"ND","39":"OH","40":"OK","41":"OR","42":"PA","44":"RI","45":"SC","46":"SD","47":"TN","48":"TX","49":"UT","50":"VT","51":"VA","53":"WA","54":"WV","55":"WI","56":"WY","60":"AS","66":"GU","69":"MP","72":"PR","78":"VI"};
+
+  async function findMine(address) {
+    setStatus("Finding your districts…");
+    const base = "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress?benchmark=Public_AR_Current&vintage=Current_Current&layers=all&address=" + encodeURIComponent(address);
+    let d;
+    try { d = await jsonp(base); }
+    catch { return setStatus("Couldn't reach the Census geocoder. Try browsing your state instead.", true); }
+    const m = d?.result?.addressMatches?.[0];
+    if (!m) return setStatus("The Census geocoder didn't recognise that address. Try adding the city and state, or browse your state.", true);
+    const g = m.geographies;
+    const pick = re => { const k = Object.keys(g).find(k => re.test(k)); return k ? g[k][0] : null; };
+    const cd = pick(/Congressional Districts/i);
+    const up = pick(/Legislative Districts - Upper/i);
+    const lo = pick(/Legislative Districts - Lower/i);
+    const st = FIPS[(cd || up || lo || pick(/^States$/i) || {}).STATE];
+    if (!st) return setStatus("Found the address but not its state's districts. Try browsing your state.", true);
+
+    const people = await loadState(st);
+    const cdNum = cd ? (/at large/i.test(cd.BASENAME) ? "0" : String(+cd.BASENAME || cd.BASENAME)) : null;
+    const mine = people.filter(p => {
+      if (p.level === "federal") return p.chamber === "senate" || p.district === cdNum || ["DC","PR","AS","GU","MP","VI"].includes(st);
+      const target = p.chamber === "upper" ? up : lo;
+      return target && norm(p.district) === norm(target.BASENAME);
+    });
+    const misses = [];
+    if (up && !mine.some(p => p.level === "state" && p.chamber === "upper")) misses.push("state senate");
+    if (lo && !mine.some(p => p.level === "state" && p.chamber === "lower")) misses.push("state house");
+    const where = m.matchedAddress.split(",").slice(-3, -1).join(",").trim() || st;
+    start(mine, `Yours · ${where}`);
+    setStatus(`${mine.length} people represent ${esc(m.matchedAddress)}.` +
+      (misses.length ? ` (Couldn't match your ${misses.join(" or ")} district by name — browse the state to find them.)` : ""));
+    $("#state").value = "";
+  }
+
+  // ---------- deck ----------
+  function start(people, where) {
+    state.all = people; state.where = where;
+    state.met = []; state.skipped = [];
+    applyLevel();
+    $("#deck-area").hidden = false; $("#summary").hidden = true;
+    $("#deck-area").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  function applyLevel() {
+    const seen = new Set([...state.met, ...state.skipped].map(p => p.id));
+    state.deck = state.all.filter(p => (state.level === "all" || p.level === state.level) && !seen.has(p.id));
+    state.i = 0;
+    document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.level === state.level));
+    render();
+  }
+
+  function facts(p) {
+    const f = [];
+    if (p.party) f.push(p.party);
+    if (p.since) f.push(`In office since ${p.since}`);
+    if (p.term) f.push(p.term);
+    if (p.term_ends) f.push(`Term ends ${p.term_ends}`);
+    if (p.age) f.push(`Age ${p.age}`);
+    if (p.committees?.length) f.push(`${p.committees.length} committee${p.committees.length > 1 ? "s" : ""}`);
+    return f;
+  }
+
+  function cardHTML(p) {
+    const photo = safeUrl(p.photo);
+    return `
+      <div class="photo" ${photo ? `style="background-image:url('${esc(photo)}')"` : ""} data-init="${esc(initials(p.name))}">${photo ? "" : esc(initials(p.name))}</div>
+      <div class="stamp learn">Learn more</div><div class="stamp skip">Skip</div>
+      <div class="body">
+        <div class="role">${esc(p.role)}</div>
+        <h2>${esc(p.name)}</h2>
+        <div class="seat">${esc(p.seat)}</div>
+        <div class="facts">${facts(p).map(x => `<span class="fact">${esc(x)}</span>`).join("")}</div>
+      </div>`;
+  }
+
+  function photoFallback(el) {
+    const ph = $(".photo", el);
+    const url = safeUrl(ph?.style.backgroundImage.slice(5, -2));
+    if (!url) return;
+    const img = new Image();
+    img.onerror = () => { ph.style.backgroundImage = ""; ph.textContent = ph.dataset.init; };
+    img.src = url;
+  }
+
+  function render() {
+    const deck = $("#deck");
+    deck.innerHTML = "";
+    const left = state.deck.length - state.i;
+    $("#where").textContent = state.where;
+    $("#count").textContent = left > 0 ? `${state.i + 1} of ${state.deck.length}` : "";
+    $("#actions").hidden = left <= 0;
+    if (left <= 0) return finish();
+    // under card first, then the top one
+    [1, 0].forEach(off => {
+      const p = state.deck[state.i + off];
+      if (!p) return;
+      const el = document.createElement("article");
+      el.className = "card" + (off ? " under" : "");
+      el.innerHTML = cardHTML(p);
+      el.setAttribute("aria-label", `${p.name}, ${p.role}, ${p.seat}`);
+      deck.appendChild(el);
+      photoFallback(el);
+      if (!off) drag(el);
+    });
+  }
+
+  function top() { return $("#deck .card:not(.under)"); }
+
+  function advance(dir) {
+    const p = state.deck[state.i];
+    if (!p) return;
+    (dir === "learn" ? state.met : state.skipped).push(p);
+    const el = top();
+    if (el) {
+      el.style.transform = `translateX(${dir === "learn" ? 120 : -120}%) rotate(${dir === "learn" ? 14 : -14}deg)`;
+      el.style.opacity = "0";
+    }
+    state.i++;
+    setTimeout(render, 220);
+    if (dir === "learn") openSheet(p, true);
+  }
+
+  // ---------- swipe ----------
+  function drag(el) {
+    let x0 = null, y0 = 0, dx = 0, id = null;
+    const stamps = { learn: $(".stamp.learn", el), skip: $(".stamp.skip", el) };
+    el.addEventListener("pointerdown", e => {
+      if (e.button !== 0) return;
+      x0 = e.clientX; y0 = e.clientY; dx = 0; id = e.pointerId;
+      el.setPointerCapture(id); el.classList.add("dragging");
+    });
+    el.addEventListener("pointermove", e => {
+      if (x0 === null || e.pointerId !== id) return;
+      dx = e.clientX - x0;
+      const dy = (e.clientY - y0) * .15;
+      el.style.transform = `translate(${dx}px, ${dy}px) rotate(${dx / 18}deg)`;
+      stamps.learn.style.opacity = Math.max(0, Math.min(1, dx / 90));
+      stamps.skip.style.opacity = Math.max(0, Math.min(1, -dx / 90));
+    });
+    const end = e => {
+      if (x0 === null || e.pointerId !== id) return;
+      x0 = null; el.classList.remove("dragging");
+      if (dx > 100) return advance("learn");
+      if (dx < -100) return advance("skip");
+      el.style.transform = ""; stamps.learn.style.opacity = stamps.skip.style.opacity = 0;
+      if (Math.abs(dx) < 6 && e.type === "pointerup") openSheet(state.deck[state.i], false); // a tap peeks
+    };
+    el.addEventListener("pointerup", end);
+    el.addEventListener("pointercancel", end);
+  }
+
+  // ---------- learn more ----------
+  function openSheet(p, fromLearn) {
+    const photo = safeUrl(p.photo);
+    const sec = (title, html) => html ? `<h3>${title}</h3>${html}` : "";
+    const list = items => items.length ? `<ul>${items.join("")}</ul>` : "";
+    const contact = [
+      p.phone && `<li>☎ <a href="tel:${esc(p.phone.replace(/[^\d+]/g, ""))}">${esc(p.phone)}</a></li>`,
+      p.email && `<li>✉ <a href="mailto:${esc(p.email)}">${esc(p.email)}</a></li>`,
+      safeUrl(p.contact) && `<li><a href="${esc(p.contact)}" target="_blank" rel="noopener">Contact form ↗</a></li>`,
+      safeUrl(p.website) && `<li><a href="${esc(p.website)}" target="_blank" rel="noopener">Official site ↗</a></li>`,
+      p.office && `<li class="thin">${esc(p.office)}</li>`,
+    ].filter(Boolean);
+    const socialUrl = { twitter: h => `https://x.com/${h}`, facebook: h => `https://facebook.com/${h}`, instagram: h => `https://instagram.com/${h}`, youtube: h => `https://youtube.com/${h}` };
+    const social = Object.entries(p.social || {}).map(([k, h]) => `<a href="${esc(socialUrl[k](encodeURIComponent(h)))}" target="_blank" rel="noopener">${k[0].toUpperCase() + k.slice(1)}</a>`);
+    const links = (p.links || []).filter(l => safeUrl(l.url)).map(l => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`);
+
+    $("#sheet-body").innerHTML = `
+      <div class="sheet-head">
+        <div class="mini" ${photo ? `style="background-image:url('${esc(photo)}')"` : ""}>${photo ? "" : esc(initials(p.name))}</div>
+        <div><div class="role">${esc(p.role)}</div><h2>${esc(p.name)}</h2><div class="seat">${esc(p.seat)}${p.party ? " · " + esc(p.party) : ""}</div></div>
+      </div>
+      ${p.bio ? `<p class="thin" style="margin-top:16px">${esc(p.bio)}</p>` : ""}
+      ${sec("Committees", list((p.committees || []).map(c => `<li>${esc(c.name.replace(/^(Senate|House) Committee on (the )?/, ""))}${c.title ? `<span class="tag">${esc(c.title)}</span>` : ""}</li>`)))}
+      ${sec("In office", list((p.career || []).map(c => `<li>${esc(c.label)} · ${c.from}–${c.to ?? "now"}</li>`)))}
+      ${sec("Reach them", list(contact))}
+      ${sec("How they vote, who funds them, who they are", links.length ? `<div class="links">${links.join("")}</div>` : "")}
+      ${sec("Elsewhere", social.length ? `<div class="links">${social.join("")}</div>` : "")}
+      ${p.level === "state" && !p.committees.length ? `<p class="thin" style="margin-top:18px">Open States' bulk data doesn't include tenure or committees for state legislators — the links above go deeper.</p>` : ""}
+      <div class="sheet-actions">
+        <button id="sheet-close">${fromLearn ? "Next person" : "Back"}</button>
+        ${fromLearn ? "" : `<button class="primary" id="sheet-skip">Skip</button>`}
+      </div>`;
+    const dlg = $("#sheet");
+    $("#sheet-close").onclick = () => dlg.close();
+    const sk = $("#sheet-skip");
+    if (sk) sk.onclick = () => { dlg.close(); advance("skip"); };
+    dlg.showModal();
+    dlg.scrollTop = 0;
+    $("#sheet-body").focus();
+  }
+  $("#sheet").addEventListener("click", e => { if (e.target.id === "sheet") e.target.close(); });
+
+  // ---------- end of deck ----------
+  function finish() {
+    const s = $("#summary");
+    const row = (p, i) => `<li><div><div class="who">${esc(p.name)}</div><div class="what">${esc(p.role)} · ${esc(p.seat)}</div></div><button data-i="${i}">Look again</button></li>`;
+    s.innerHTML = `
+      <p class="kicker">That's everyone${state.level !== "all" ? " at this level" : ""}</p>
+      <h2>You learned about ${state.met.length} ${state.met.length === 1 ? "person" : "people"}.</h2>
+      ${state.met.length ? `<ul class="met">${state.met.map(row).join("")}</ul>` : ""}
+      ${state.skipped.length ? `<p class="thin">You skipped ${state.skipped.length}. <a href="#" id="again">Go through the skipped ones →</a></p>` : ""}`;
+    s.hidden = false;
+    s.querySelectorAll("button[data-i]").forEach(b => b.onclick = () => openSheet(state.met[+b.dataset.i], false));
+    const again = $("#again");
+    if (again) again.onclick = e => { e.preventDefault(); const sk = state.skipped; state.skipped = []; state.deck = sk; state.i = 0; s.hidden = true; render(); };
+  }
+
+  // ---------- wiring ----------
+  function setStatus(msg, err) { const el = $("#status"); el.innerHTML = msg; el.classList.toggle("err", !!err); }
+
+  $("#finder").addEventListener("submit", e => { e.preventDefault(); const a = $("#addr").value.trim(); if (a) findMine(a); });
+  $("#state").addEventListener("change", async e => {
+    const code = e.target.value; if (!code) return;
+    setStatus("Loading…");
+    try {
+      const people = await loadState(code);
+      start(people, e.target.selectedOptions[0].text.split(" — ")[0]);
+      setStatus("");
+    } catch { setStatus("Couldn't load that state.", true); }
+  });
+  document.querySelectorAll(".chip").forEach(c => c.addEventListener("click", () => { state.level = c.dataset.level; $("#summary").hidden = true; applyLevel(); }));
+  $("#btn-learn").onclick = () => advance("learn");
+  $("#btn-skip").onclick = () => advance("skip");
+  document.addEventListener("keydown", e => {
+    if ($("#sheet").open || $("#deck-area").hidden || /INPUT|SELECT/.test(document.activeElement.tagName)) return;
+    if (e.key === "ArrowRight") advance("learn");
+    if (e.key === "ArrowLeft") advance("skip");
+  });
+})();
+</script>
+</body>
+</html>
