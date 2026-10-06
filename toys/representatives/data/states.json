@@ -4,13 +4,13 @@
   {
    "code": "AL",
    "name": "Alabama",
-   "count": 149,
+   "count": 156,
    "federal": 9
   },
   {
    "code": "AK",
    "name": "Alaska",
-   "count": 63,
+   "count": 67,
    "federal": 3
   },
   {
@@ -22,55 +22,55 @@
   {
    "code": "AZ",
    "name": "Arizona",
-   "count": 101,
+   "count": 105,
    "federal": 11
   },
   {
    "code": "AR",
    "name": "Arkansas",
-   "count": 138,
+   "count": 145,
    "federal": 6
   },
   {
    "code": "CA",
    "name": "California",
-   "count": 172,
+   "count": 177,
    "federal": 54
   },
   {
    "code": "CO",
    "name": "Colorado",
-   "count": 109,
+   "count": 114,
    "federal": 10
   },
   {
    "code": "CT",
    "name": "Connecticut",
-   "count": 194,
+   "count": 199,
    "federal": 7
   },
   {
    "code": "DE",
    "name": "Delaware",
-   "count": 65,
+   "count": 69,
    "federal": 3
   },
   {
    "code": "DC",
    "name": "District of Columbia",
-   "count": 14,
+   "count": 15,
    "federal": 1
   },
   {
    "code": "FL",
    "name": "Florida",
-   "count": 184,
+   "count": 189,
    "federal": 29
   },
   {
    "code": "GA",
    "name": "Georgia",
-   "count": 251,
+   "count": 256,
    "federal": 16
   },
   {
@@ -82,145 +82,145 @@
   {
    "code": "HI",
    "name": "Hawaii",
-   "count": 80,
+   "count": 84,
    "federal": 4
   },
   {
    "code": "ID",
    "name": "Idaho",
-   "count": 109,
+   "count": 114,
    "federal": 4
   },
   {
    "code": "IL",
    "name": "Illinois",
-   "count": 196,
+   "count": 200,
    "federal": 19
   },
   {
    "code": "IN",
    "name": "Indiana",
-   "count": 161,
+   "count": 166,
    "federal": 11
   },
   {
    "code": "IA",
    "name": "Iowa",
-   "count": 155,
+   "count": 160,
    "federal": 6
   },
   {
    "code": "KS",
    "name": "Kansas",
-   "count": 171,
+   "count": 176,
    "federal": 6
   },
   {
    "code": "KY",
    "name": "Kentucky",
-   "count": 146,
+   "count": 150,
    "federal": 8
   },
   {
    "code": "LA",
    "name": "Louisiana",
-   "count": 150,
+   "count": 154,
    "federal": 8
   },
   {
    "code": "ME",
    "name": "Maine",
-   "count": 192,
+   "count": 195,
    "federal": 4
   },
   {
    "code": "MD",
    "name": "Maryland",
-   "count": 198,
+   "count": 202,
    "federal": 10
   },
   {
    "code": "MA",
    "name": "Massachusetts",
-   "count": 208,
+   "count": 216,
    "federal": 11
   },
   {
    "code": "MI",
    "name": "Michigan",
-   "count": 163,
+   "count": 168,
    "federal": 15
   },
   {
    "code": "MN",
    "name": "Minnesota",
-   "count": 210,
+   "count": 215,
    "federal": 10
   },
   {
    "code": "MS",
    "name": "Mississippi",
-   "count": 177,
+   "count": 181,
    "federal": 6
   },
   {
    "code": "MO",
    "name": "Missouri",
-   "count": 198,
+   "count": 202,
    "federal": 10
   },
   {
    "code": "MT",
    "name": "Montana",
-   "count": 154,
+   "count": 158,
    "federal": 4
   },
   {
    "code": "NE",
    "name": "Nebraska",
-   "count": 54,
+   "count": 59,
    "federal": 5
   },
   {
    "code": "NV",
    "name": "Nevada",
-   "count": 69,
+   "count": 74,
    "federal": 6
   },
   {
    "code": "NH",
    "name": "New Hampshire",
-   "count": 410,
+   "count": 412,
    "federal": 4
   },
   {
    "code": "NJ",
    "name": "New Jersey",
-   "count": 134,
+   "count": 138,
    "federal": 14
   },
   {
    "code": "NM",
    "name": "New Mexico",
-   "count": 115,
+   "count": 119,
    "federal": 5
   },
   {
    "code": "NY",
    "name": "New York",
-   "count": 240,
+   "count": 244,
    "federal": 28
   },
   {
    "code": "NC",
    "name": "North Carolina",
-   "count": 186,
+   "count": 190,
    "federal": 16
   },
   {
    "code": "ND",
    "name": "North Dakota",
-   "count": 144,
+   "count": 149,
    "federal": 3
   },
   {
@@ -232,61 +232,61 @@
   {
    "code": "OH",
    "name": "Ohio",
-   "count": 147,
+   "count": 152,
    "federal": 17
   },
   {
    "code": "OK",
    "name": "Oklahoma",
-   "count": 154,
+   "count": 158,
    "federal": 7
   },
   {
    "code": "OR",
    "name": "Oregon",
-   "count": 98,
+   "count": 102,
    "federal": 8
   },
   {
    "code": "PA",
    "name": "Pennsylvania",
-   "count": 272,
+   "count": 277,
    "federal": 19
   },
   {
    "code": "PR",
    "name": "Puerto Rico",
-   "count": 82,
+   "count": 84,
    "federal": 1
   },
   {
    "code": "RI",
    "name": "Rhode Island",
-   "count": 116,
+   "count": 121,
    "federal": 4
   },
   {
    "code": "SC",
    "name": "South Carolina",
-   "count": 179,
+   "count": 184,
    "federal": 9
   },
   {
    "code": "SD",
    "name": "South Dakota",
-   "count": 108,
+   "count": 113,
    "federal": 3
   },
   {
    "code": "TN",
    "name": "Tennessee",
-   "count": 142,
+   "count": 145,
    "federal": 11
   },
   {
    "code": "TX",
    "name": "Texas",
-   "count": 217,
+   "count": 222,
    "federal": 39
   },
   {
@@ -298,43 +298,43 @@
   {
    "code": "UT",
    "name": "Utah",
-   "count": 110,
+   "count": 114,
    "federal": 6
   },
   {
    "code": "VT",
    "name": "Vermont",
-   "count": 183,
+   "count": 188,
    "federal": 3
   },
   {
    "code": "VA",
    "name": "Virginia",
-   "count": 152,
+   "count": 156,
    "federal": 13
   },
   {
    "code": "WA",
    "name": "Washington",
-   "count": 159,
+   "count": 164,
    "federal": 12
   },
   {
    "code": "WV",
    "name": "West Virginia",
-   "count": 138,
+   "count": 141,
    "federal": 4
   },
   {
    "code": "WI",
    "name": "Wisconsin",
-   "count": 142,
+   "count": 146,
    "federal": 10
   },
   {
    "code": "WY",
    "name": "Wyoming",
-   "count": 96,
+   "count": 100,
    "federal": 3
   }
  ]
