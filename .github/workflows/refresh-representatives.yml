@@ -1,0 +1,56 @@
+# Monthly refresh of Meet Your Representatives' data.
+#
+# The toy is a static page; its data is a snapshot of two public datasets
+# (congress-legislators, Open States). This rebuilds the snapshot and, if any
+# legislator changed, commits it to main — and a push to main is the deploy.
+# No server involved: the site stays static (ADR-0001 §1).
+#
+# The build refuses to write if an upstream fetch fails or the result is
+# implausibly small, so a bad month fails loudly here instead of publishing
+# a state with no legislators. Run it by hand from the Actions tab any time.
+
+name: Refresh representatives
+
+on:
+  schedule:
+    - cron: "17 9 1 * *"   # 1st of the month, 09:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-representatives
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build
+        run: python3 toys/representatives/build/build_reps.py
+
+      - name: Verify share metadata
+        run: python3 tools/share.py verify
+
+      - name: Commit if any legislator changed
+        run: |
+          # states.json carries the build date, so it always differs; only
+          # commit when the people themselves changed.
+          if git diff --quiet -- toys/representatives/data ':!toys/representatives/data/states.json'; then
+            echo "No changes in the data this month."
+            exit 0
+          fi
+          git config user.name "roofbeam-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add toys/representatives/data
+          git commit -m "Refresh representatives data ($(date -u +%Y-%m-%d))" \
+                     -m "$(git diff --cached --stat | tail -1)"
+          git push
