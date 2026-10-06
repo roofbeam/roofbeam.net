@@ -1,0 +1,341 @@
+{
+ "built": "2026-10-06",
+ "states": [
+  {
+   "code": "AL",
+   "name": "Alabama",
+   "count": 149,
+   "federal": 9
+  },
+  {
+   "code": "AK",
+   "name": "Alaska",
+   "count": 63,
+   "federal": 3
+  },
+  {
+   "code": "AS",
+   "name": "American Samoa",
+   "count": 1,
+   "federal": 1
+  },
+  {
+   "code": "AZ",
+   "name": "Arizona",
+   "count": 101,
+   "federal": 11
+  },
+  {
+   "code": "AR",
+   "name": "Arkansas",
+   "count": 138,
+   "federal": 6
+  },
+  {
+   "code": "CA",
+   "name": "California",
+   "count": 172,
+   "federal": 54
+  },
+  {
+   "code": "CO",
+   "name": "Colorado",
+   "count": 109,
+   "federal": 10
+  },
+  {
+   "code": "CT",
+   "name": "Connecticut",
+   "count": 194,
+   "federal": 7
+  },
+  {
+   "code": "DE",
+   "name": "Delaware",
+   "count": 65,
+   "federal": 3
+  },
+  {
+   "code": "DC",
+   "name": "District of Columbia",
+   "count": 14,
+   "federal": 1
+  },
+  {
+   "code": "FL",
+   "name": "Florida",
+   "count": 184,
+   "federal": 29
+  },
+  {
+   "code": "GA",
+   "name": "Georgia",
+   "count": 251,
+   "federal": 16
+  },
+  {
+   "code": "GU",
+   "name": "Guam",
+   "count": 1,
+   "federal": 1
+  },
+  {
+   "code": "HI",
+   "name": "Hawaii",
+   "count": 80,
+   "federal": 4
+  },
+  {
+   "code": "ID",
+   "name": "Idaho",
+   "count": 109,
+   "federal": 4
+  },
+  {
+   "code": "IL",
+   "name": "Illinois",
+   "count": 196,
+   "federal": 19
+  },
+  {
+   "code": "IN",
+   "name": "Indiana",
+   "count": 161,
+   "federal": 11
+  },
+  {
+   "code": "IA",
+   "name": "Iowa",
+   "count": 155,
+   "federal": 6
+  },
+  {
+   "code": "KS",
+   "name": "Kansas",
+   "count": 171,
+   "federal": 6
+  },
+  {
+   "code": "KY",
+   "name": "Kentucky",
+   "count": 146,
+   "federal": 8
+  },
+  {
+   "code": "LA",
+   "name": "Louisiana",
+   "count": 150,
+   "federal": 8
+  },
+  {
+   "code": "ME",
+   "name": "Maine",
+   "count": 192,
+   "federal": 4
+  },
+  {
+   "code": "MD",
+   "name": "Maryland",
+   "count": 198,
+   "federal": 10
+  },
+  {
+   "code": "MA",
+   "name": "Massachusetts",
+   "count": 208,
+   "federal": 11
+  },
+  {
+   "code": "MI",
+   "name": "Michigan",
+   "count": 163,
+   "federal": 15
+  },
+  {
+   "code": "MN",
+   "name": "Minnesota",
+   "count": 210,
+   "federal": 10
+  },
+  {
+   "code": "MS",
+   "name": "Mississippi",
+   "count": 177,
+   "federal": 6
+  },
+  {
+   "code": "MO",
+   "name": "Missouri",
+   "count": 198,
+   "federal": 10
+  },
+  {
+   "code": "MT",
+   "name": "Montana",
+   "count": 154,
+   "federal": 4
+  },
+  {
+   "code": "NE",
+   "name": "Nebraska",
+   "count": 54,
+   "federal": 5
+  },
+  {
+   "code": "NV",
+   "name": "Nevada",
+   "count": 69,
+   "federal": 6
+  },
+  {
+   "code": "NH",
+   "name": "New Hampshire",
+   "count": 410,
+   "federal": 4
+  },
+  {
+   "code": "NJ",
+   "name": "New Jersey",
+   "count": 134,
+   "federal": 14
+  },
+  {
+   "code": "NM",
+   "name": "New Mexico",
+   "count": 115,
+   "federal": 5
+  },
+  {
+   "code": "NY",
+   "name": "New York",
+   "count": 240,
+   "federal": 28
+  },
+  {
+   "code": "NC",
+   "name": "North Carolina",
+   "count": 186,
+   "federal": 16
+  },
+  {
+   "code": "ND",
+   "name": "North Dakota",
+   "count": 144,
+   "federal": 3
+  },
+  {
+   "code": "MP",
+   "name": "Northern Mariana Islands",
+   "count": 1,
+   "federal": 1
+  },
+  {
+   "code": "OH",
+   "name": "Ohio",
+   "count": 147,
+   "federal": 17
+  },
+  {
+   "code": "OK",
+   "name": "Oklahoma",
+   "count": 154,
+   "federal": 7
+  },
+  {
+   "code": "OR",
+   "name": "Oregon",
+   "count": 98,
+   "federal": 8
+  },
+  {
+   "code": "PA",
+   "name": "Pennsylvania",
+   "count": 272,
+   "federal": 19
+  },
+  {
+   "code": "PR",
+   "name": "Puerto Rico",
+   "count": 82,
+   "federal": 1
+  },
+  {
+   "code": "RI",
+   "name": "Rhode Island",
+   "count": 116,
+   "federal": 4
+  },
+  {
+   "code": "SC",
+   "name": "South Carolina",
+   "count": 179,
+   "federal": 9
+  },
+  {
+   "code": "SD",
+   "name": "South Dakota",
+   "count": 108,
+   "federal": 3
+  },
+  {
+   "code": "TN",
+   "name": "Tennessee",
+   "count": 142,
+   "federal": 11
+  },
+  {
+   "code": "TX",
+   "name": "Texas",
+   "count": 217,
+   "federal": 39
+  },
+  {
+   "code": "VI",
+   "name": "U.S. Virgin Islands",
+   "count": 1,
+   "federal": 1
+  },
+  {
+   "code": "UT",
+   "name": "Utah",
+   "count": 110,
+   "federal": 6
+  },
+  {
+   "code": "VT",
+   "name": "Vermont",
+   "count": 183,
+   "federal": 3
+  },
+  {
+   "code": "VA",
+   "name": "Virginia",
+   "count": 152,
+   "federal": 13
+  },
+  {
+   "code": "WA",
+   "name": "Washington",
+   "count": 159,
+   "federal": 12
+  },
+  {
+   "code": "WV",
+   "name": "West Virginia",
+   "count": 138,
+   "federal": 4
+  },
+  {
+   "code": "WI",
+   "name": "Wisconsin",
+   "count": 142,
+   "federal": 10
+  },
+  {
+   "code": "WY",
+   "name": "Wyoming",
+   "count": 96,
+   "federal": 3
+  }
+ ]
+}
