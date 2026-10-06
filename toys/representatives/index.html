@@ -331,13 +331,23 @@ footer p { margin: 0 0 8px; }
     render();
   }
 
+  // Born dates are stored, not ages, so a card never goes stale between builds.
+  // Open States sometimes has only a year; then we can't be exact, so say nothing.
+  function ageOf(born) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(born || "");
+    if (!m) return null;
+    const t = new Date();
+    return t.getFullYear() - +m[1] - ((t.getMonth() + 1 < +m[2] || (t.getMonth() + 1 === +m[2] && t.getDate() < +m[3])) ? 1 : 0);
+  }
+
   function facts(p) {
     const f = [];
     if (p.party) f.push(p.party);
     if (p.since) f.push(`In office since ${p.since}`);
     if (p.term) f.push(p.term);
     if (p.term_ends) f.push(`Term ends ${p.term_ends}`);
-    if (p.age) f.push(`Age ${p.age}`);
+    const age = ageOf(p.born);
+    if (age) f.push(`Age ${age}`);
     if (p.committees?.length) f.push(`${p.committees.length} committee${p.committees.length > 1 ? "s" : ""}`);
     return f;
   }

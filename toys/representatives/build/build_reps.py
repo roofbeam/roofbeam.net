@@ -70,14 +70,6 @@ def party(p):
     return {"Democrat": "Democratic"}.get(p, p or "")
 
 
-def age(birthday):
-    if not birthday:
-        return None
-    b = dt.date.fromisoformat(birthday)
-    t = dt.date.today()
-    return t.year - b.year - ((t.month, t.day) < (b.month, b.day))
-
-
 def ordinal(n):
     suf = "th" if 10 <= n % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
     return f"{n}{suf}"
@@ -154,7 +146,7 @@ def federal():
             "since": run[0],
             "term": f"{ordinal(n)} term" if n > 1 else "1st term",
             "term_ends": cur["end"][:4],
-            "age": age(p.get("bio", {}).get("birthday")),
+            "born": p.get("bio", {}).get("birthday", ""),
             "photo": PHOTO.format(bg),
             "phone": cur.get("phone", ""),
             "office": cur.get("address", ""),
@@ -174,12 +166,23 @@ def federal():
     return out
 
 
+# Open States doesn't publish legislatures for these; anywhere else, a failed
+# fetch must fail the build rather than ship a state with no legislators.
+NO_OPEN_STATES = {"AS", "GU", "MP", "VI"}
+
+# Floors for a sane build. Congress is 535 + 6 delegates; state legislatures
+# total ~7,400 seats. Well under either means an upstream broke, not that
+# thousands of people left office — refuse to write rather than publish a gap.
+MIN_FEDERAL, MIN_STATE = 500, 6500
+
+
 def state_legislators(st):
     try:
         raw = get(OS.format(st.lower())).decode("utf-8")
-    except Exception as e:  # territories Open States doesn't cover
-        print(f"  {st}: no Open States file ({e})", file=sys.stderr)
-        return []
+    except Exception as e:
+        if st in NO_OPEN_STATES:
+            return []
+        sys.exit(f"{st}: Open States fetch failed ({e}) — not writing a partial build")
     out = []
     for r in csv.DictReader(io.StringIO(raw)):
         ch = r["current_chamber"]
@@ -206,7 +209,7 @@ def state_legislators(st):
             "since": None,
             "term": "",
             "term_ends": "",
-            "age": age(r["birth_date"]),
+            "born": r["birth_date"],
             "photo": r["image"],
             "phone": r["capitol_voice"] or r["district_voice"],
             "office": r["capitol_address"] or r["district_address"],
@@ -228,12 +231,18 @@ def state_legislators(st):
 
 
 def main():
-    OUT.mkdir(exist_ok=True)
     fed = federal()
     print(f"federal: {len(fed)}")
+    state = {st: state_legislators(st) for st in STATES}
+    n_state = sum(map(len, state.values()))
+    print(f"state: {n_state}")
+    if len(fed) < MIN_FEDERAL or n_state < MIN_STATE:
+        sys.exit(f"suspiciously small build (federal {len(fed)}, state {n_state}) — not writing")
+
+    OUT.mkdir(exist_ok=True)
     index = []
     for st, name in STATES.items():
-        people = [p for p in fed if p["state"] == st] + state_legislators(st)
+        people = [p for p in fed if p["state"] == st] + state[st]
         if not people:
             continue
         order = {("federal", "senate"): 0, ("federal", "house"): 1,
