@@ -1,7 +1,8 @@
 # ADR-0003 — The Tribes of Behavior atlas: a database of told histories
 
-- **Status:** proposed — **draft for discussion, nothing built.** No tables or migrations until Jeremy agrees to the shape.
-- **Proposed:** 2026-10-25
+- **Status:** accepted — **the shape is agreed; nothing is built yet.** The next step is the `atlas` app (models and migrations) in `~/core/roofbeam-api`, built to this ADR.
+- **Decided:** 2026-10-25
+- **Proposed:** 2026-10-25 (same day; Q1 answered by Jeremy, Q2–5 accepted from the literature defaults)
 - **Extends:** [ADR-0001](0001-workshop-architecture.md). The database lives in the Django spine (`~/core/roofbeam-api`, served at `api.roofbeam.net`); the public toy stays static and reads exported JSON.
 - **Toy it serves:** `toys/tribes/` (`bundles.json`, `geos.json`, `index.html`, `geos.html`)
 - **Vault reasoning:** `Builder Vault/Efforts/Roofbeam/` (the theory itself is not restated here)
@@ -25,7 +26,7 @@ What exists today is one hand-authored file. `bundles.json` holds Iberia, told f
 | box → polygon | `geos.html` `boxFeature()` | Walks the box edges in 2° steps along parallels and meridians. Crosses the antimeridian when west > east. A `cap: "south"` box becomes a polar circle. |
 | coverage | `geos.html` | A 1° land raster. Each cell counts the land geos whose boxes claim it (seas and corridors excluded) and is weighted by cos(lat). |
 
-## Decision (proposed)
+## Decision
 
 ### 1. Store: Postgres + PostGIS, in a new Django app `atlas` in the spine
 
@@ -62,7 +63,7 @@ The row-plus-citation shape is what the gazetteer world calls an *attestation*: 
 - **Each assertion row has a required `citation_id`.** That covers keyframes, channel spans, events, conflict geometry, geo names, lineage links and portal presences. Nothing exists in the atlas without a citation.
 - **Per-value provenance** goes in `FieldCitation(row_table, row_id, field, citation_id)`. It is used only when one field of a row comes from a different source than the rest. For example, a keyframe whose position is from Kennedy but whose reach is Jeremy's estimate. The row's own citation stays the default, so queries are not forced through an entity-attribute-value table.
 - **Today's data is honest about itself.** All of `bundles.json` imports under one `Source(kind=authored_schematic, title="Tribes of Behavior — Iberia sketch", creators="Jeremy Parra with Claude", year=2026)` at certainty `speculative`. Replacing it with real citations then shows up in the data as an act, not a silent edit.
-- **Certainty is a word, always; a number only when it is real** (open question 5, default):
+- **Certainty is a word, always; a number only when it is real** (Q5, decided 2026-10-25):
   - The word comes from WHG's scale (`certain | probable | uncertain | speculative`) so the atlas can exchange data with gazetteers [WHG].
   - `value_lo`/`value_hi` are filled only when the source itself gives a range or an error. This follows IPCC's rule that likelihood is used only "when appropriate probabilistic information is available" [IPCC], and Seshat's "likely range of variation" [Seshat].
   - The mapping from word to number for models is a stored, versioned function (`confidence_scale`, §5), because the same word means different odds to different readers [Kent].
@@ -125,7 +126,7 @@ FunctionVersion  function FK, version (semver), spec (prose + maths),
 - **The function really is in the database.** That means its maths, its parameters and its exact source text in each language, all hashed.
 - **The test vectors are what make it mean something.** The page's JS and the spine's Python both run the same vectors in CI. "The Python that built the training features is the same function the page draws with" then becomes a checked fact, not a hope.
 - **Every derived thing names the versions it used.** That includes a geo's `geom`, an export, a feature snapshot and a model run. Changing 0.18 to 0.2 is a new version, never an edit.
-- **The page does not `eval` code fetched from the database** (open question 3, default). The export names the version ids and carries their params and hashes. The page ships implementations for the versions it knows, and says so on screen if handed one it does not know. Reasons:
+- **The page does not `eval` code fetched from the database** (Q3, decided 2026-10-25). The export names the version ids and carries their params and hashes. The page ships implementations for the versions it knows, and says so on screen if handed one it does not know. Reasons:
   - Reproducibility asks that every result record the exact program version that made it [Sandve], and a hash match does that without executing data.
   - Executing JS that arrives as data needs `eval` or `new Function`, which a strict content security policy forbids by name [MDN].
   - Run provenance uses PROV terms: a render or `ModelRun` *used* `FunctionVersion`s and *was derived from* a `DataRelease` [PROV-O].
@@ -135,7 +136,7 @@ FunctionVersion  function FK, version (semver), spec (prose + maths),
 These are Jeremy's rules, made exact so they can be versioned:
 
 1. **Within one account, colonies add.** That account's presence of tribe T at (point, t) is the kernel sum over its colonies.
-2. **The home geo is authoritative.** Among the geos whose `geom` contains the point and that have an account mentioning T, take the one with the **smallest area** (the most specific telling; open question 2, default). Its value stands, **including zero**: if Iberia's account says Arabic is gone from Toledo in 1700, a Maghreb account's halo does not bring it back. In data-fusion terms this is **"Trust your friends"**: metadata-based, "whom to trust is decided once and carried out for all data values" [Bleiholder & Naumann]. Specificity is the quality criterion, so no priority column is needed. One can be added, nullable, the day a real case needs it.
+2. **The home geo is authoritative.** Among the geos whose `geom` contains the point and that have an account mentioning T, take the one with the **smallest area** (the most specific telling; Q2, decided 2026-10-25). Its value stands, **including zero**: if Iberia's account says Arabic is gone from Toledo in 1700, a Maghreb account's halo does not bring it back. In data-fusion terms this is **"Trust your friends"**: metadata-based, "whom to trust is decided once and carried out for all data values" [Bleiholder & Naumann]. Specificity is the quality criterion, so no priority column is needed. One can be added, nullable, the day a real case needs it.
 3. **Otherwise the strongest account wins.** Take the maximum presence across accounts. This is a value-based deciding strategy, and the side-by-side export is their **"Pass it on"**.
 4. **Contours are applied after reconciliation.**
 5. **Nothing is overwritten.** The merged field is computed, cached as a materialised view for export, and every cached cell records which account won. Exports carry each account's own keyframes alongside, so the toy can show "Iberia says… / the Maghreb says…".
@@ -158,7 +159,7 @@ EventTribe     event FK, tribe FK, role
 
 `carried` is the bodies-versus-signals distinction ("signals outrun bodies"). It stays a property of the kind, as it is today. It is Carey's point that the telegraph separated communication from transportation [Carey], and it belongs to the **conveyance**.
 
-The **Medium fiber is the behavior** (open question 4, default): reading manuscripts, reading print, listening to radio, scrolling. These are ways of taking in ideas that an observer could see and that shape the people who practise them [McLuhan, Ong, Eisenstein]. So Medium is a `Layer` of tribes, and a channel kind optionally points at the medium tribe it serves (`manuscript` → the manuscript-reading tribe). The two are kept distinct because they come apart: print changed how people read long before it changed the roads books travelled. Innis's time-biased versus space-biased media [Innis] is a candidate attribute of medium tribes, left out until it is needed.
+The **Medium fiber is the behavior** (Q4, decided 2026-10-25): reading manuscripts, reading print, listening to radio, scrolling. These are ways of taking in ideas that an observer could see and that shape the people who practise them [McLuhan, Ong, Eisenstein]. So Medium is a `Layer` of tribes, and a channel kind optionally points at the medium tribe it serves (`manuscript` → the manuscript-reading tribe). The two are kept distinct because they come apart: print changed how people read long before it changed the roads books travelled. Innis's time-biased versus space-biased media [Innis] is a candidate attribute of medium tribes, left out until it is needed.
 
 ### 8. Conflict: points and fronts over time
 
@@ -213,7 +214,7 @@ data/sources.json         sources + citations referenced by index from the files
 
 - **Keyframes stay arrays,** so the page's parsing barely changes: `[t, lon, lat, reach_km, strength?, cite?]`. The sixth element indexes `sources.json`, and old readers ignore it.
 - **The page never calls the database.** Exports are committed to the Pages repo like any file. That is ADR-0001's failure mode, kept.
-- **`import_atlas` reads the same format.** The current `bundles.json` and `geos.json` load as release 0, and round-tripping the export is a test. After release 0 nobody authors in JSON: the database is the truth (open question 1, closed).
+- **`import_atlas` reads the same format.** The current `bundles.json` and `geos.json` load as release 0, and round-tripping the export is a test. After release 0 nobody authors in JSON: the database is the truth (Q1, decided 2026-10-25).
 
 ## ER sketch
 
@@ -262,10 +263,10 @@ erDiagram
     Citation ||--o{ Event : ""
 ```
 
-## Open questions: Jeremy's to close before anything is built
+## Questions closed with Jeremy, 2026-10-25
 
-1. ~~**Where does truth live while authoring?**~~ **CLOSED 2026-10-25: the database is truth; git holds the exports.** Edits go through the admin, scripts, or Claude sessions calling the API. The JSON in `toys/tribes/data/` is generated and marked do-not-hand-edit. `import_atlas` exists only to load release 0 from today's files and to test the round trip, not as an authoring path. Reproducibility therefore rests on the append-only assertions and `DataRelease.as_of` (§1, §9), not on a commit SHA.
-Questions 2–5 have **defaults drawn from the literature**, written into the sections above, and await Jeremy's yes or no:
+1. **Where truth lives while authoring — decided 2026-10-25: the database is truth; git holds the exports.** Edits go through the admin, scripts, or Claude sessions calling the API. The JSON in `toys/tribes/data/` is generated and marked do-not-hand-edit. `import_atlas` exists only to load release 0 from today's files and to test the round trip, not as an authoring path. Reproducibility therefore rests on the append-only assertions and `DataRelease.as_of` (§1, §9), not on a commit SHA.
+Questions 2–5 were answered from the literature and **accepted by Jeremy as written** (2026-10-25):
 
 2. **Home-geo tie-break:** the smallest containing geo that mentions the tribe wins, with no priority column. This is a "Trust your friends" strategy with specificity as the quality criterion [Bleiholder & Naumann]. The seam it creates is named, and checked against in ML [Openshaw, Tobler]. (§6)
 3. **Executable functions:** stored (maths, params, source per language, hash, test vectors) but not `eval`ed by the page. The page implements the versions it knows, and CI checks every implementation against the stored vectors [Sandve, MDN, PROV-O]. (§5)
