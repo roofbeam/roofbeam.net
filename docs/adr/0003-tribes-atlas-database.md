@@ -5,6 +5,7 @@
 - **Extends:** [ADR-0001](0001-workshop-architecture.md). The database lives in the Django spine (`~/core/roofbeam-api`, served at `api.roofbeam.net`); the public toy stays static and reads exported JSON.
 - **Toy it serves:** `toys/tribes/` (`bundles.json`, `geos.json`, `index.html`, `geos.html`)
 - **Vault reasoning:** `Builder Vault/Efforts/Roofbeam/` (the theory itself is not restated here)
+- **References:** [`toys/tribes/references.md`](../../toys/tribes/references.md) (and `references.bib`), kept with the project so they can be posted with it. Bracketed tags such as [Seshat] below point there.
 
 ## Context: what he asked for, in his words
 
@@ -51,13 +52,21 @@ Source      kind: historian_work | primary_artifact | dataset | map | authored_s
             zotero_key, wikidata_qid,
             artifact: holder + accession no.   dataset: version + sha256
 Citation    source FK, locator ("pp. 212–14", "fig. 3", "row 1044"), excerpt (short),
-            confidence, note, recorded_by
+            certainty (certain | probable | uncertain | speculative),
+            value_lo, value_hi (nullable: only when the source gives a range),
+            note, recorded_by
 ```
+
+The row-plus-citation shape is what the gazetteer world calls an *attestation*: "a source-backed claim that connects a Thing to information" [PLATO, WHG].
 
 - **Each assertion row has a required `citation_id`.** That covers keyframes, channel spans, events, conflict geometry, geo names, lineage links and portal presences. Nothing exists in the atlas without a citation.
 - **Per-value provenance** goes in `FieldCitation(row_table, row_id, field, citation_id)`. It is used only when one field of a row comes from a different source than the rest. For example, a keyframe whose position is from Kennedy but whose reach is Jeremy's estimate. The row's own citation stays the default, so queries are not forced through an entity-attribute-value table.
-- **Today's data is honest about itself.** All of `bundles.json` imports under one `Source(kind=authored_schematic, title="Tribes of Behavior — Iberia sketch", creators="Jeremy Parra with Claude", year=2026)` at confidence `conjecture`. Replacing it with real citations then shows up in the data as an act, not a silent edit.
-- **Confidence is ordinal:** `attested | likely | plausible | conjecture`. A 0–1 number would claim precision nobody has. Where a model needs a number, the mapping is a stored function (§5), so it is versioned as well.
+- **Today's data is honest about itself.** All of `bundles.json` imports under one `Source(kind=authored_schematic, title="Tribes of Behavior — Iberia sketch", creators="Jeremy Parra with Claude", year=2026)` at certainty `speculative`. Replacing it with real citations then shows up in the data as an act, not a silent edit.
+- **Certainty is a word, always; a number only when it is real** (open question 5, default):
+  - The word comes from WHG's scale (`certain | probable | uncertain | speculative`) so the atlas can exchange data with gazetteers [WHG].
+  - `value_lo`/`value_hi` are filled only when the source itself gives a range or an error. This follows IPCC's rule that likelihood is used only "when appropriate probabilistic information is available" [IPCC], and Seshat's "likely range of variation" [Seshat].
+  - The mapping from word to number for models is a stored, versioned function (`confidence_scale`, §5), because the same word means different odds to different readers [Kent].
+  - **Agreement is not stored; it is computed.** IPCC judges confidence from evidence *and* agreement. Here agreement emerges from how many independent citations concur on the same value.
 - **A model output is never a Source.** Predictions go in their own table (§9) and can never become training labels.
 
 ### 3. Geos and names
@@ -87,8 +96,8 @@ TribeLink      from_tribe, to_tribe, kind (splits_into | merges_into | descends_
 Account        geo FK, title, author, extent (view box), t_from, t_to, note
                -- one geo's telling: the unit that bundles.json is today
 Colony         account FK, tribe FK, label, note
-Keyframe       colony FK, t, t_prec, point geography(Point), reach_km, strength (default 1),
-               citation FK, recorded_at/by, retracted_at
+Keyframe       colony FK, t, t_prec, point geography(Point), geo_prec (exact | approximate | uncertain),
+               reach_km, strength (default 1), citation FK, recorded_at/by, retracted_at
 Place          slug, name, point, pleiades_id, geonames_id, wikidata_qid
 PlacePresence  account FK, tribe FK, place FK, t_from, t_to, citation FK
                -- today's "portals": the tribe was alive there, off this map's edge
@@ -116,24 +125,30 @@ FunctionVersion  function FK, version (semver), spec (prose + maths),
 - **The function really is in the database.** That means its maths, its parameters and its exact source text in each language, all hashed.
 - **The test vectors are what make it mean something.** The page's JS and the spine's Python both run the same vectors in CI. "The Python that built the training features is the same function the page draws with" then becomes a checked fact, not a hope.
 - **Every derived thing names the versions it used.** That includes a geo's `geom`, an export, a feature snapshot and a model run. Changing 0.18 to 0.2 is a new version, never an edit.
-- **The page does not `eval` code fetched from the database.** The export names the version ids and carries their params. The page ships implementations for the versions it knows, and says so on screen if handed one it does not know. (Open question 3.)
+- **The page does not `eval` code fetched from the database** (open question 3, default). The export names the version ids and carries their params and hashes. The page ships implementations for the versions it knows, and says so on screen if handed one it does not know. Reasons:
+  - Reproducibility asks that every result record the exact program version that made it [Sandve], and a hash match does that without executing data.
+  - Executing JS that arrives as data needs `eval` or `new Function`, which a strict content security policy forbids by name [MDN].
+  - Run provenance uses PROV terms: a render or `ModelRun` *used* `FunctionVersion`s and *was derived from* a `DataRelease` [PROV-O].
 
 ### 6. Reconciliation, as a stored function (`reconcile v1`)
 
 These are Jeremy's rules, made exact so they can be versioned:
 
 1. **Within one account, colonies add.** That account's presence of tribe T at (point, t) is the kernel sum over its colonies.
-2. **The home geo is authoritative.** Among the geos whose `geom` contains the point and that have an account mentioning T, take the one with the **smallest area** (the most specific telling). Its value stands, **including zero**: if Iberia's account says Arabic is gone from Toledo in 1700, a Maghreb account's halo does not bring it back.
-3. **Otherwise the strongest account wins.** Take the maximum presence across accounts.
+2. **The home geo is authoritative.** Among the geos whose `geom` contains the point and that have an account mentioning T, take the one with the **smallest area** (the most specific telling; open question 2, default). Its value stands, **including zero**: if Iberia's account says Arabic is gone from Toledo in 1700, a Maghreb account's halo does not bring it back. In data-fusion terms this is **"Trust your friends"**: metadata-based, "whom to trust is decided once and carried out for all data values" [Bleiholder & Naumann]. Specificity is the quality criterion, so no priority column is needed. One can be added, nullable, the day a real case needs it.
+3. **Otherwise the strongest account wins.** Take the maximum presence across accounts. This is a value-based deciding strategy, and the side-by-side export is their **"Pass it on"**.
 4. **Contours are applied after reconciliation.**
 5. **Nothing is overwritten.** The merged field is computed, cached as a materialised view for export, and every cached cell records which account won. Exports carry each account's own keyframes alongside, so the toy can show "Iberia says… / the Maghreb says…".
 
-"Mentions" here means the account has any colony or place presence of T, at any time. Its accepted consequence is a **seam:** with boxes, the winner can change abruptly at a box edge. A later `reconcile v2` could blend across a band (`{"blend_km": 150}`). That would be a new version, and older renders would still say v1.
+"Mentions" here means the account has any colony or place presence of T, at any time. Its accepted consequence is a **seam:** with boxes, the winner can change abruptly at a box edge. A later `reconcile v2` could blend across a band (`{"blend_km": 150}`), on the grounds that near things are more related than distant ones [Tobler]. That would be a new version, and older renders would still say v1.
+
+The merged field is therefore partly an artifact of where the geo edges were drawn: the modifiable areal unit problem [Openshaw]. So ML features (§9) are built **per account as well as** on the reconciled field, and a finding that holds on only one of them is suspect.
 
 ### 7. Channels and events
 
 ```
-ChannelKind    slug, name, carried bool          road | sea | pilgrim | manuscript | rail | air | signal | digital
+ChannelKind    slug, name, carried bool,         road | sea | pilgrim | manuscript | rail | air | signal | digital
+               medium_tribe FK Tribe (nullable)   -- the Medium-fiber behavior this conveyance serves
 Channel        slug, account FK, name, kind FK, t_from, t_to, citation FK,
                path geography(LineString)        -- generated from the vertices, for spatial queries
 ChannelVertex  channel FK, seq, place FK (nullable), point     -- "@rome" round-trips as place=rome
@@ -141,7 +156,9 @@ Event          account FK, t, t_prec, title, place FK | point, kind, citation FK
 EventTribe     event FK, tribe FK, role
 ```
 
-`carried` is the bodies-versus-signals distinction ("signals outrun bodies"). It stays a property of the kind, as it is today.
+`carried` is the bodies-versus-signals distinction ("signals outrun bodies"). It stays a property of the kind, as it is today. It is Carey's point that the telegraph separated communication from transportation [Carey], and it belongs to the **conveyance**.
+
+The **Medium fiber is the behavior** (open question 4, default): reading manuscripts, reading print, listening to radio, scrolling. These are ways of taking in ideas that an observer could see and that shape the people who practise them [McLuhan, Ong, Eisenstein]. So Medium is a `Layer` of tribes, and a channel kind optionally points at the medium tribe it serves (`manuscript` → the manuscript-reading tribe). The two are kept distinct because they come apart: print changed how people read long before it changed the roads books travelled. Innis's time-biased versus space-biased media [Innis] is a candidate attribute of medium tribes, left out until it is needed.
 
 ### 8. Conflict: points and fronts over time
 
@@ -196,7 +213,7 @@ data/sources.json         sources + citations referenced by index from the files
 
 - **Keyframes stay arrays,** so the page's parsing barely changes: `[t, lon, lat, reach_km, strength?, cite?]`. The sixth element indexes `sources.json`, and old readers ignore it.
 - **The page never calls the database.** Exports are committed to the Pages repo like any file. That is ADR-0001's failure mode, kept.
-- **`import_atlas` reads the same format.** The current `bundles.json` and `geos.json` load as release 0, and round-tripping the export is a test.
+- **`import_atlas` reads the same format.** The current `bundles.json` and `geos.json` load as release 0, and round-tripping the export is a test. After release 0 nobody authors in JSON: the database is the truth (open question 1, closed).
 
 ## ER sketch
 
@@ -247,15 +264,18 @@ erDiagram
 
 ## Open questions: Jeremy's to close before anything is built
 
-1. **Where does truth live while authoring?** (a) **The database** (recommended, and ADR-0001's stated evolution): edits go through the admin, scripts or Claude sessions calling the API, and git holds the exports. (b) **Per-geo account files in git**, with the database rebuilt from them on import. That gives reviewable PR diffs and free reproducibility via commit SHA, at the cost of a second source of truth in practice.
-2. **Home-geo tie-break.** When several geos contain a point (Iberia sits inside the Mediterranean), is "smallest area that mentions the tribe" right, or should accounts carry an explicit priority?
-3. **Executable functions.** Is "the maths, params, source text and test vectors are in the database, and the page implements the versions it knows" enough? Or do you want the page to *run* the stored JS body itself (possible on our own static origin, but `eval` of data)?
-4. **Medium versus channel kinds.** `manuscript` is already a channel kind ("books carried"). Is the Medium fiber the *behavior* (a people who read manuscripts) and the channel kind the *conveyance*, linked by an optional `ChannelKind.medium_tribe`? Or are they one thing?
-5. **Confidence.** Is an ordinal scale (`attested | likely | plausible | conjecture`) acceptable, or do you want numbers from historians where they give them?
+1. ~~**Where does truth live while authoring?**~~ **CLOSED 2026-10-25: the database is truth; git holds the exports.** Edits go through the admin, scripts, or Claude sessions calling the API. The JSON in `toys/tribes/data/` is generated and marked do-not-hand-edit. `import_atlas` exists only to load release 0 from today's files and to test the round trip, not as an authoring path. Reproducibility therefore rests on the append-only assertions and `DataRelease.as_of` (§1, §9), not on a commit SHA.
+Questions 2–5 have **defaults drawn from the literature**, written into the sections above, and await Jeremy's yes or no:
+
+2. **Home-geo tie-break:** the smallest containing geo that mentions the tribe wins, with no priority column. This is a "Trust your friends" strategy with specificity as the quality criterion [Bleiholder & Naumann]. The seam it creates is named, and checked against in ML [Openshaw, Tobler]. (§6)
+3. **Executable functions:** stored (maths, params, source per language, hash, test vectors) but not `eval`ed by the page. The page implements the versions it knows, and CI checks every implementation against the stored vectors [Sandve, MDN, PROV-O]. (§5)
+4. **Medium versus channel kinds:** two things, linked. Medium is a fiber of behaviors [McLuhan, Ong, Eisenstein]. The channel kind is the conveyance, with `carried` as Carey's separation of communication from transportation [Carey], and an optional `ChannelKind.medium_tribe` links them. (§7)
+5. **Confidence:** a word from WHG's scale always. A numeric range only when the source gives one. Word-to-number mapping in a versioned function. Agreement computed from concurring citations, not stored [WHG, IPCC, Seshat, Kent]. (§2)
 
 ## Consequences
 
-- Every value on the map can answer "says who?". Today's sketch says, truthfully, "Jeremy, 2026, conjecture".
+- Every value on the map can answer "says who?". Today's sketch says, truthfully, "Jeremy, 2026, speculative".
+- The literature behind these decisions sits beside the toy in `toys/tribes/references.md`, so it is published with it.
 - Two geos can disagree forever without either being overwritten. The disagreement is data.
 - The page, the exports and the model runs all name the function versions they used, so "which kernel drew this?" has an answer.
 - The spine gains GeoDjango system dependencies, and local dev needs SpatiaLite or a Postgres container.
