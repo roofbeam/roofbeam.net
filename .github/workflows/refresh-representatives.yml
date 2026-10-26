@@ -1,7 +1,7 @@
-# Monthly refresh of Meet Your Representatives' data.
+# Monthly refresh of Meet Your Government's data (toys/representatives).
 #
-# The toy is a static page; its data is a snapshot of two public datasets
-# (congress-legislators, Open States). This rebuilds the snapshot and, if any
+# The toy is a static page; its data is a snapshot of public datasets
+# (congress-legislators, Open States, Wikidata). This rebuilds the snapshot and, if any
 # legislator changed, commits it to main — and a push to main is the deploy.
 # No server involved: the site stays static (ADR-0001 §1).
 #
@@ -35,7 +35,9 @@ jobs:
           python-version: "3.12"
 
       - name: Build
-        run: python3 toys/representatives/build/build_reps.py
+        run: |
+          pip install --quiet pyyaml
+          python3 toys/representatives/build/build_reps.py
 
       - name: Verify share metadata
         run: python3 tools/share.py verify

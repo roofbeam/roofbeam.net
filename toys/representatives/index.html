@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Meet Your Representatives</title>
-<meta name="description" content="The people who write your laws, one card at a time — federal and state. Not thumbs up or thumbs down: learn more, or skip.">
+<title>Meet Your Government</title>
+<meta name="description" content="The people who make, carry out and judge your laws, one card at a time — federal and state. Not thumbs up or thumbs down: learn more, or skip.">
 
 <!-- share metadata — generated from toys/representatives/toy.json by tools/share.py.
      Do not hand-edit: change the manifest, re-run `tools/share.py cards`,
@@ -12,25 +12,25 @@
 <link rel="canonical" href="https://roofbeam.net/toys/representatives/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Roofbeam">
-<meta property="og:title" content="Meet Your Representatives">
-<meta property="og:description" content="The people who write your laws, one card at a time — federal and state. Not thumbs up or thumbs down: learn more, or skip.">
+<meta property="og:title" content="Meet Your Government">
+<meta property="og:description" content="The people who make your laws, carry them out, and judge them — federal and state, one card at a time. Not thumbs up or thumbs down: learn more, or skip.">
 <meta property="og:url" content="https://roofbeam.net/toys/representatives/">
 <meta property="og:image" content="https://roofbeam.net/toys/representatives/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Meet Your Representatives — a toy on roofbeam.net">
+<meta property="og:image:alt" content="Meet Your Government — a toy on roofbeam.net">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Meet Your Representatives">
-<meta name="twitter:description" content="The people who write your laws, one card at a time — federal and state. Not thumbs up or thumbs down: learn more, or skip.">
+<meta name="twitter:title" content="Meet Your Government">
+<meta name="twitter:description" content="The people who make your laws, carry them out, and judge them — federal and state, one card at a time. Not thumbs up or thumbs down: learn more, or skip.">
 <meta name="twitter:image" content="https://roofbeam.net/toys/representatives/og.png">
 <meta name="author" content="Jeremy Parra">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "CreativeWork",
-  "name": "Meet Your Representatives",
-  "headline": "Meet Your Representatives",
-  "description": "The people who write your laws, one card at a time — federal and state. Not thumbs up or thumbs down: learn more, or skip.",
+  "name": "Meet Your Government",
+  "headline": "Meet Your Government",
+  "description": "The people who make your laws, carry them out, and judge them — federal and state, one card at a time. Not thumbs up or thumbs down: learn more, or skip.",
   "url": "https://roofbeam.net/toys/representatives/",
   "image": "https://roofbeam.net/toys/representatives/og.png",
   "inLanguage": "en",
@@ -110,7 +110,7 @@ button.primary { background: var(--ink); color: var(--bg); border-color: var(--i
 .status { min-height: 1.4em; font-size: .9rem; color: var(--muted); margin: 6px 0 0; }
 .status.err { color: var(--accent); }
 
-.chips { display: flex; gap: 6px; flex-wrap: wrap; margin: 14px 0 0; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0 0; }
 .chip { font-size: .82rem; font-weight: 500; padding: 6px 12px; border-radius: 999px; }
 .chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--ink); }
 
@@ -128,10 +128,16 @@ button.primary { background: var(--ink); color: var(--bg); border-color: var(--i
 .card.under { transform: scale(.955) translateY(14px); opacity: .7; pointer-events: none; }
 .card.dragging { transition: none; cursor: grabbing; }
 .photo {
-  height: 240px; background: var(--accent-soft) center 12% / cover no-repeat; flex: none;
+  position: relative; height: 250px; flex: none; overflow: hidden; background: var(--accent-soft);
   display: flex; align-items: center; justify-content: center;
   font-family: Fraunces, serif; font-size: 4rem; color: var(--accent);
 }
+/* Source portraits are small and portrait-shaped; cropping them to a wide box
+   blows them up into a band across the face. Show the whole picture, and fill
+   the sides with a blurred copy of it instead. */
+.photo .bg { position: absolute; inset: -24px; background: center / cover no-repeat; filter: blur(22px); opacity: .55; }
+.photo img { position: relative; height: 100%; width: auto; max-width: 100%; object-fit: contain; display: block; }
+.photo svg { width: 96px; height: 96px; color: var(--accent); opacity: .8; }
 .body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; min-height: 0; }
 .role { font-size: .74rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
 .card h2 { font-size: 1.65rem; letter-spacing: -.01em; }
@@ -172,7 +178,7 @@ dialog {
 dialog::backdrop { background: rgba(23,21,15,.45); }
 .sheet { padding: 22px 22px 26px; }
 .sheet-head { display: flex; gap: 14px; align-items: center; }
-.sheet-head .mini { width: 64px; height: 78px; border-radius: 10px; background: var(--accent-soft) center 22% / cover; flex: none; display: flex; align-items: center; justify-content: center; font-family: Fraunces, serif; font-size: 1.6rem; color: var(--accent); }
+.sheet-head .mini { width: 64px; height: 78px; border-radius: 10px; background: var(--accent-soft) center top / cover; flex: none; display: flex; align-items: center; justify-content: center; font-family: Fraunces, serif; font-size: 1.6rem; color: var(--accent); }
 .sheet h2 { font-size: 1.4rem; }
 .sheet h3 { font-family: Inter, sans-serif; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 22px 0 8px; font-weight: 600; }
 .sheet ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
@@ -193,8 +199,8 @@ footer p { margin: 0 0 8px; }
   <header><a class="brand" href="/">roof<span>beam</span></a></header>
 
   <p class="kicker">A toy</p>
-  <h1>Meet your representatives</h1>
-  <p class="lede">The people who write your laws, one card at a time — federal and state. Not thumbs up or thumbs down. Just: <em>learn more</em>, or <em>skip</em>.</p>
+  <h1>Meet your government</h1>
+  <p class="lede">The people who make your laws, carry them out, and judge them — federal and state, one card at a time. Not thumbs up or thumbs down. Just: <em>learn more</em>, or <em>skip</em>.</p>
 
   <form class="finder" id="finder" autocomplete="on">
     <div class="row">
@@ -202,16 +208,22 @@ footer p { margin: 0 0 8px; }
       <button class="primary" type="submit">Find mine</button>
     </div>
     <p class="note">Your address goes to the U.S. Census Bureau's geocoder to find your districts. Roofbeam never sees it.</p>
-    <div class="or">or browse a whole state</div>
-    <select id="state" aria-label="Browse a state"><option value="">Choose a state…</option></select>
+    <div class="or">or browse</div>
+    <select id="state" aria-label="Browse a state or the federal government"><option value="">Choose a state, or the federal government…</option></select>
     <p class="status" id="status" role="status"></p>
   </form>
 
   <div id="deck-area" class="deck-area" hidden>
-    <div class="chips" role="group" aria-label="Which level">
+    <div class="chips" role="group" aria-label="Level of government">
       <button class="chip" data-level="all" aria-pressed="true">Everyone</button>
-      <button class="chip" data-level="federal" aria-pressed="false">Congress</button>
-      <button class="chip" data-level="state" aria-pressed="false">Statehouse</button>
+      <button class="chip" data-level="federal" aria-pressed="false">Federal</button>
+      <button class="chip" data-level="state" aria-pressed="false">State</button>
+    </div>
+    <div class="chips" role="group" aria-label="Branch of government">
+      <button class="chip" data-branch="all" aria-pressed="true">All branches</button>
+      <button class="chip" data-branch="legislative" aria-pressed="false">Lawmakers</button>
+      <button class="chip" data-branch="executive" aria-pressed="false">Executive</button>
+      <button class="chip" data-branch="judicial" aria-pressed="false">Courts</button>
     </div>
     <div style="height:14px"></div>
     <div class="progress"><span id="where"></span><span id="count"></span></div>
@@ -226,8 +238,9 @@ footer p { margin: 0 0 8px; }
   <div id="summary" class="summary" hidden></div>
 
   <footer>
-    <p>Federal: <a href="https://github.com/unitedstates/congress-legislators">unitedstates/congress-legislators</a> (public domain). State: <a href="https://openstates.org/data/">Open States</a> (CC0). Districts: <a href="https://geocoding.geo.census.gov/">U.S. Census geocoder</a>. <span id="built"></span></p>
-    <p>State legislators come with fewer facts than members of Congress — Open States' bulk files don't carry tenure or committees. That gap is the data's, not a judgement.</p>
+    <p>Congress: <a href="https://github.com/unitedstates/congress-legislators">unitedstates/congress-legislators</a> (public domain). State legislators and executives: <a href="https://openstates.org/data/">Open States</a> (CC0). President, Cabinet, Supreme Court and state high courts: <a href="https://www.wikidata.org/">Wikidata</a> (CC0). Districts: <a href="https://geocoding.geo.census.gov/">U.S. Census geocoder</a>. <span id="built"></span></p>
+    <p>The Cabinet here is the heads of the fifteen executive departments; which other posts count as "Cabinet-level" changes with each administration.</p>
+    <p>Some cards say less than others. State legislators have no tenure or committees in Open States' bulk files; some states' elected executives aren't in Open States yet; and no open source keeps state supreme court justices current, so each state's high court gets one card that points to who sits there now. Those gaps are the data's, not a judgement.</p>
     <p>Party is shown as plain text, with no colours. Nothing here ranks anyone.</p>
   </footer>
 </div>
@@ -245,7 +258,7 @@ footer p { margin: 0 0 8px; }
 
   const state = {
     all: [],          // everyone loaded for the current state/address
-    level: "all",
+    level: "all", branch: "all",
     deck: [],         // filtered queue
     i: 0,
     met: [], skipped: [],
@@ -261,9 +274,17 @@ footer p { margin: 0 0 8px; }
 
   fetch("data/states.json").then(r => r.json()).then(idx => {
     const sel = $("#state");
-    for (const s of idx.states) sel.add(new Option(`${s.name} — ${s.count} legislators`, s.code));
+    sel.add(new Option("The federal government — President, Cabinet, Supreme Court", "US"));
+    for (const s of idx.states) sel.add(new Option(`${s.name} — ${s.count} people`, s.code));
     $("#built").textContent = `Data built ${idx.built}.`;
   });
+
+  // Legislative, executive, judicial — federal first, then state.
+  const RANK = { federal: { senate: 0, house: 1, head: 2, cabinet: 3, court: 4 },
+                 state: { upper: 5, lower: 6, exec: 7, court: 8 } };
+  const byRank = list => list.map((p, i) => [p, i])
+    .sort((a, b) => (RANK[a[0].level][a[0].chamber] - RANK[b[0].level][b[0].chamber]) || a[1] - b[1])
+    .map(([p]) => p);
 
   // Census geocoder answers JSONP but not CORS — so: a script tag.
   let jsonpN = 0;
@@ -298,19 +319,25 @@ footer p { margin: 0 0 8px; }
     const st = FIPS[(cd || up || lo || pick(/^States$/i) || {}).STATE];
     if (!st) return setStatus("Found the address but not its state's districts. Try browsing your state.", true);
 
-    const people = await loadState(st);
+    let people, us;
+    try { [people, us] = await Promise.all([loadState(st), loadState("US")]); }
+    catch { return setStatus("Couldn't load the data. Try again in a moment.", true); }
     const cdNum = cd ? (/at large/i.test(cd.BASENAME) ? "0" : String(+cd.BASENAME || cd.BASENAME)) : null;
     const mine = people.filter(p => {
       if (p.level === "federal") return p.chamber === "senate" || p.district === cdNum || ["DC","PR","AS","GU","MP","VI"].includes(st);
+      if (p.chamber === "exec" || p.chamber === "court") return true;  // statewide: everyone's
       const target = p.chamber === "upper" ? up : lo;
       return target && norm(p.district) === norm(target.BASENAME);
     });
+    // The Cabinet governs everyone but isn't elected by anyone; it's one tap
+    // away under "The federal government" rather than in your personal deck.
+    const yours = byRank([...us.filter(p => p.chamber !== "cabinet"), ...mine]);
     const misses = [];
     if (up && !mine.some(p => p.level === "state" && p.chamber === "upper")) misses.push("state senate");
     if (lo && !mine.some(p => p.level === "state" && p.chamber === "lower")) misses.push("state house");
     const where = m.matchedAddress.split(",").slice(-3, -1).join(",").trim() || st;
-    start(mine, `Yours · ${where}`);
-    setStatus(`${mine.length} people represent ${esc(m.matchedAddress)}.` +
+    start(yours, `Yours · ${where}`);
+    setStatus(`Your government at ${esc(m.matchedAddress)}: ${yours.length} cards.` +
       (misses.length ? ` (Couldn't match your ${misses.join(" or ")} district by name — browse the state to find them.)` : ""));
     $("#state").value = "";
   }
@@ -318,6 +345,7 @@ footer p { margin: 0 0 8px; }
   // ---------- deck ----------
   function start(people, where) {
     state.all = people; state.where = where;
+    state.level = "all"; state.branch = "all";
     state.met = []; state.skipped = [];
     applyLevel();
     $("#deck-area").hidden = false; $("#summary").hidden = true;
@@ -325,9 +353,11 @@ footer p { margin: 0 0 8px; }
   }
   function applyLevel() {
     const seen = new Set([...state.met, ...state.skipped].map(p => p.id));
-    state.deck = state.all.filter(p => (state.level === "all" || p.level === state.level) && !seen.has(p.id));
+    state.deck = state.all.filter(p => (state.level === "all" || p.level === state.level)
+      && (state.branch === "all" || p.branch === state.branch) && !seen.has(p.id));
     state.i = 0;
-    document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.level === state.level));
+    document.querySelectorAll(".chip[data-level]").forEach(c => c.setAttribute("aria-pressed", c.dataset.level === state.level));
+    document.querySelectorAll(".chip[data-branch]").forEach(c => c.setAttribute("aria-pressed", c.dataset.branch === state.branch));
     render();
   }
 
@@ -343,7 +373,7 @@ footer p { margin: 0 0 8px; }
   function facts(p) {
     const f = [];
     if (p.party) f.push(p.party);
-    if (p.since) f.push(`In office since ${p.since}`);
+    if (p.since) f.push(`${p.since_label || "In office since"} ${p.since}`);
     if (p.term) f.push(p.term);
     if (p.term_ends) f.push(`Term ends ${p.term_ends}`);
     const age = ageOf(p.born);
@@ -352,10 +382,18 @@ footer p { margin: 0 0 8px; }
     return f;
   }
 
-  function cardHTML(p) {
+  const PILLARS = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 4l9 5.5"/><path d="M4 21h16M5 18h14"/><path d="M6.5 10.5V18M10 10.5V18M14 10.5V18M17.5 10.5V18"/></svg>`;
+
+  function photoHTML(p) {
+    if (p.kind === "institution") return `<div class="photo">${PILLARS}</div>`;
     const photo = safeUrl(p.photo);
+    if (!photo) return `<div class="photo">${esc(initials(p.name))}</div>`;
+    return `<div class="photo" data-init="${esc(initials(p.name))}"><div class="bg" style="background-image:url('${esc(photo)}')"></div><img src="${esc(photo)}" alt="" referrerpolicy="no-referrer" draggable="false"></div>`;
+  }
+
+  function cardHTML(p) {
     return `
-      <div class="photo" ${photo ? `style="background-image:url('${esc(photo)}')"` : ""} data-init="${esc(initials(p.name))}">${photo ? "" : esc(initials(p.name))}</div>
+      ${photoHTML(p)}
       <div class="stamp learn">Learn more</div><div class="stamp skip">Skip</div>
       <div class="body">
         <div class="role">${esc(p.role)}</div>
@@ -366,12 +404,8 @@ footer p { margin: 0 0 8px; }
   }
 
   function photoFallback(el) {
-    const ph = $(".photo", el);
-    const url = safeUrl(ph?.style.backgroundImage.slice(5, -2));
-    if (!url) return;
-    const img = new Image();
-    img.onerror = () => { ph.style.backgroundImage = ""; ph.textContent = ph.dataset.init; };
-    img.src = url;
+    const img = $(".photo img", el);
+    if (img) img.onerror = () => { const ph = img.parentNode; ph.textContent = ph.dataset.init; };
   }
 
   function render() {
@@ -443,7 +477,7 @@ footer p { margin: 0 0 8px; }
 
   // ---------- learn more ----------
   function openSheet(p, fromLearn) {
-    const photo = safeUrl(p.photo);
+    const photo = p.kind === "institution" ? "" : safeUrl(p.photo);
     const sec = (title, html) => html ? `<h3>${title}</h3>${html}` : "";
     const list = items => items.length ? `<ul>${items.join("")}</ul>` : "";
     const contact = [
@@ -459,18 +493,19 @@ footer p { margin: 0 0 8px; }
 
     $("#sheet-body").innerHTML = `
       <div class="sheet-head">
-        <div class="mini" ${photo ? `style="background-image:url('${esc(photo)}')"` : ""}>${photo ? "" : esc(initials(p.name))}</div>
+        <div class="mini" ${photo ? `style="background-image:url('${esc(photo)}')"` : ""}>${photo ? "" : p.kind === "institution" ? PILLARS : esc(initials(p.name))}</div>
         <div><div class="role">${esc(p.role)}</div><h2>${esc(p.name)}</h2><div class="seat">${esc(p.seat)}${p.party ? " · " + esc(p.party) : ""}</div></div>
       </div>
       ${p.bio ? `<p class="thin" style="margin-top:16px">${esc(p.bio)}</p>` : ""}
       ${sec("Committees", list((p.committees || []).map(c => `<li>${esc(c.name.replace(/^(Senate|House) Committee on (the )?/, ""))}${c.title ? `<span class="tag">${esc(c.title)}</span>` : ""}</li>`)))}
       ${sec("In office", list((p.career || []).map(c => `<li>${esc(c.label)} · ${c.from}–${c.to ?? "now"}</li>`)))}
       ${sec("Reach them", list(contact))}
-      ${sec("How they vote, who funds them, who they are", links.length ? `<div class="links">${links.join("")}</div>` : "")}
+      ${sec(p.kind === "institution" ? "Who sits on it now" : p.branch === "legislative" && p.level === "federal" ? "How they vote, who funds them, who they are" : "Read more", links.length ? `<div class="links">${links.join("")}</div>` : "")}
       ${sec("Elsewhere", social.length ? `<div class="links">${social.join("")}</div>` : "")}
-      ${p.level === "state" && !p.committees.length ? `<p class="thin" style="margin-top:18px">Open States' bulk data doesn't include tenure or committees for state legislators — the links above go deeper.</p>` : ""}
+      ${p.kind === "institution" ? `<p class="thin" style="margin-top:18px">No open data source keeps state supreme court justices current, so rather than guess at names this card points to the court itself. Its official site lists who sits there now.</p>`
+        : p.level === "state" && p.branch === "legislative" ? `<p class="thin" style="margin-top:18px">Open States' bulk data doesn't include tenure or committees for state legislators — the links above go deeper.</p>` : ""}
       <div class="sheet-actions">
-        <button id="sheet-close">${fromLearn ? "Next person" : "Back"}</button>
+        <button id="sheet-close">${fromLearn ? "Next" : "Back"}</button>
         ${fromLearn ? "" : `<button class="primary" id="sheet-skip">Skip</button>`}
       </div>`;
     const dlg = $("#sheet");
@@ -488,8 +523,8 @@ footer p { margin: 0 0 8px; }
     const s = $("#summary");
     const row = (p, i) => `<li><div><div class="who">${esc(p.name)}</div><div class="what">${esc(p.role)} · ${esc(p.seat)}</div></div><button data-i="${i}">Look again</button></li>`;
     s.innerHTML = `
-      <p class="kicker">That's everyone${state.level !== "all" ? " at this level" : ""}</p>
-      <h2>You learned about ${state.met.length} ${state.met.length === 1 ? "person" : "people"}.</h2>
+      <p class="kicker">That's everyone${state.level !== "all" || state.branch !== "all" ? " for this filter" : ""}</p>
+      <h2>You learned more about ${state.met.length}.</h2>
       ${state.met.length ? `<ul class="met">${state.met.map(row).join("")}</ul>` : ""}
       ${state.skipped.length ? `<p class="thin">You skipped ${state.skipped.length}. <a href="#" id="again">Go through the skipped ones →</a></p>` : ""}`;
     s.hidden = false;
@@ -507,11 +542,15 @@ footer p { margin: 0 0 8px; }
     setStatus("Loading…");
     try {
       const people = await loadState(code);
-      start(people, e.target.selectedOptions[0].text.split(" — ")[0]);
+      start(code === "US" ? people : byRank(people), e.target.selectedOptions[0].text.split(" — ")[0]);
       setStatus("");
     } catch { setStatus("Couldn't load that state.", true); }
   });
-  document.querySelectorAll(".chip").forEach(c => c.addEventListener("click", () => { state.level = c.dataset.level; $("#summary").hidden = true; applyLevel(); }));
+  document.querySelectorAll(".chip").forEach(c => c.addEventListener("click", () => {
+    if (c.dataset.level) state.level = c.dataset.level;
+    if (c.dataset.branch) state.branch = c.dataset.branch;
+    $("#summary").hidden = true; applyLevel();
+  }));
   $("#btn-learn").onclick = () => advance("learn");
   $("#btn-skip").onclick = () => advance("skip");
   document.addEventListener("keydown", e => {

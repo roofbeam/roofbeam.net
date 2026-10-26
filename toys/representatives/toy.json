@@ -1,10 +1,10 @@
 {
   "slug": "representatives",
-  "title": "Meet Your Representatives",
-  "page_title": "Meet Your Representatives",
-  "tagline": "The people who write your laws, one card at a time — federal and state. Not thumbs up or thumbs down: learn more, or skip.",
-  "card_question": "Who actually represents you? Meet them one at a time.",
-  "source": "unitedstates/congress-legislators · Open States · U.S. Census geocoder",
+  "title": "Meet Your Government",
+  "page_title": "Meet Your Government",
+  "tagline": "The people who make your laws, carry them out, and judge them — federal and state, one card at a time. Not thumbs up or thumbs down: learn more, or skip.",
+  "card_question": "Who actually governs you? Meet them one at a time.",
+  "source": "congress-legislators · Open States · Wikidata · U.S. Census geocoder",
   "published": true,
   "created": "2026-10-06",
   "discussion_prompt": "Who did you meet that you didn't know was yours?"
