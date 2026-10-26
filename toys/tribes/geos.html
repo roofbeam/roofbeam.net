@@ -65,6 +65,7 @@ li.g .k{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--ink-3);
 li.g .hist{font-size:10px;color:var(--accent);margin-left:4px;font-weight:600}
 .detail{margin:3px 0 6px 17px;padding:7px 9px;background:var(--paper);border-radius:7px;font-size:12px;color:var(--ink-2)}
 .detail .aka{margin-top:4px;color:var(--ink-3)}
+.detail .by{font-size:11px;opacity:.8}
 .detail a{color:var(--accent)}
 .loading{position:absolute;inset:0;display:grid;place-items:center;color:var(--ink-3);font-family:"IBM Plex Mono",monospace;font-size:12px}
 @media (max-width:860px){
@@ -91,41 +92,42 @@ li.g .hist{font-size:10px;color:var(--accent);margin-left:4px;font-weight:600}
 <script>
 (async function(){
 const $ = id => document.getElementById(id);
-let data, world;
+let data, world, release, tribesD;
 try {
-  [data, world] = await Promise.all([
-    fetch("geos.json").then(r => r.json()),
+  [data, release, tribesD, world] = await Promise.all([
+    fetch("data/geos.json").then(r => r.json()),
+    fetch("data/release.json").then(r => r.json()),
+    fetch("data/tribes.json").then(r => r.json()),
     fetch("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/land-110m.json").then(r => r.json())
   ]);
 } catch (e) { $("loading").textContent = "couldn't load — " + e.message; return; }
 $("loading").remove();
 const land = topojson.feature(world, world.objects.land);
-const HAS_HISTORY = { iberia: "./" };
+// the release's geos, minus the whole-globe account's pseudo-geo; geometry is the stored box_to_polygon output
+data.geos = data.geos.filter(g => g.slug !== "world").map(g => ({ ...g, id: g.slug, f: g.geom }));
+data.realms = data.realms.filter(r => data.geos.some(g => g.realm === r));
+const tribeName = new Map(tribesD.tribes.map(t => [t.slug, t.name]));
+const yr = y => y < 0 ? -y + " BCE" : String(y);
+const nameLine = n => {
+  const who = n.used_by_tribe ? tribeName.get(n.used_by_tribe) : n.used_by_text;
+  const when = n.t_from != null || n.t_to != null ? `${n.t_from != null ? yr(n.t_from) : "…"}–${n.t_to != null ? yr(n.t_to) : "now"}` : "";
+  return n.name + (who || when ? ` <span class="by">(${[who, when].filter(Boolean).join(", ")})</span>` : "");
+};
+const HAS_HISTORY = Object.fromEntries(release.histories.filter(h => h !== "world").map(h => {
+  const g = data.geos.find(x => x.slug === h), [w, s, e, n] = g.box;
+  return [h, `./#v=${((w + e) / 2).toFixed(1)},${((s + n) / 2).toFixed(1)},6`];
+}));
 
 const REALM_COLORS = ["#2a6f97", "#b4531f", "#8a6d3b", "#6b8e23", "#c0392b", "#9b2f5f", "#16a085", "#5b6abf", "#7b3f8c", "#c9a227", "#1e8449", "#727c68", "#4a90a4"];
 const realmColor = d3.scaleOrdinal(data.realms, REALM_COLORS);
 const isConn = g => g.realm === "Seas & Corridors";
 
-// a lat/lon box as a polygon that follows the parallels
-function boxFeature(g) {
-  if (g.cap === "south") return d3.geoCircle().center([0, -90]).radius(90 + g.box[3])();
-  let [w, s, e, n] = g.box;
-  if (e < w) e += 360;
-  const ring = [], step = 2;
-  for (let y = s; y < n; y += step) ring.push([w, y]);
-  for (let x = w; x < e; x += step) ring.push([x, n]);
-  for (let y = n; y > s; y -= step) ring.push([e, y]);
-  for (let x = e; x > w; x -= step) ring.push([x, s]);
-  ring.push([w, s]);
-  return { type: "Polygon", coordinates: [ring.map(([x, y]) => [x > 180 ? x - 360 : x, y])] };
-}
 const inBox = (g, lon, lat) => {
   if (g.cap === "south") return lat <= g.box[3];
   const [w, s, e, n] = g.box;
   if (lat < s || lat > n) return false;
   return w <= e ? lon >= w && lon <= e : lon >= w || lon <= e;
 };
-data.geos.forEach(g => g.f = boxFeature(g));
 
 // ---- coverage: rasterise land at 1° and count which squares each geo claims ----
 const RES = 1, CW = 360 / RES, CH = 180 / RES;
@@ -227,7 +229,7 @@ for (const realm of data.realms) {
       .on("mouseleave", () => { if (!S.sel) geoPaths.classed("hot", false); })
       .on("click", () => select(S.sel === g.id ? null : g.id));
     ul.append("li").attr("class", "detail").attr("data-for", g.id).attr("hidden", true)
-      .html(`${g.why}<div class="aka">also: ${g.aka.join(" · ")}</div>${HAS_HISTORY[g.id] ? `<div><a href="${HAS_HISTORY[g.id]}">open its history →</a></div>` : ""}`);
+      .html(`${g.why}<div class="aka">also: ${g.names.map(nameLine).join(" · ")}</div>${HAS_HISTORY[g.id] ? `<div><a href="${HAS_HISTORY[g.id]}">open its history →</a></div>` : ""}`);
   }
 }
 function select(id) {
