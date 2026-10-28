@@ -161,12 +161,6 @@
   <header>
     <nav class="nav">
       <a class="brand" href="/">Roof<span>beam</span></a>
-      <div>
-        <a class="link" href="#projects">Projects</a>
-        <a class="link" href="#writing">Writing</a>
-        <a class="link" href="#reading">Reading</a>
-        <a class="link" href="#hello">Say hello</a>
-      </div>
     </nav>
   </header>
 
@@ -180,130 +174,16 @@
     </div>
 
     <div class="wrap">
-      <section id="projects">
-        <div class="sec-head">
-          <h2>Projects</h2>
-          <span class="more">things I'm playing with</span>
-        </div>
-        <div class="grid">
-          <a class="card" href="/toys/where-americans-resettle/">
-            <span class="tag">Toy · live</span>
-            <h3>Where Americans Resettle</h3>
-            <p>An interactive map of internal US migration — every line a place-pair where people moved. The premise: we're immigrants in our own country.</p>
-          </a>
-          <a class="card" href="/toys/tree/">
-            <span class="tag">Toy · live</span>
-            <h3>The Tree of Human Thought</h3>
-            <p>An influence-genealogy of ideas — who shaped whom, from the dawn of writing to now. Thinkers placed by era and domain; the documented record in gray, the cross-tradition bridges in amber.</p>
-          </a>
-          <a class="card" href="/toys/representatives/">
-            <span class="tag">Toy · live</span>
-            <h3>Meet Your Government</h3>
-            <p>The people who make your laws, carry them out, and judge them — federal and state, one card at a time. Not thumbs up or thumbs down: learn more, or skip.</p>
-          </a>
-          <article class="card">
-            <span class="tag">Soon</span>
-            <h3>More in the workshop</h3>
-            <p>Things are being built that aren't public yet. Check back — the roof's going up.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="writing">
-        <div class="sec-head">
-          <h2>Writing</h2>
-          <a class="more" href="/musings/">all musings &rarr;</a>
-        </div>
-        <ul class="list">
-          <li><a class="t" href="/toys/tree/">The Tree of Human Thought</a><span class="d">musing &middot; a map</span></li>
-          <!-- musings:start -->
-        <!-- musings:end -->
-        </ul>
-      </section>
-
-      <section id="reading" class="reading">
-        <div class="sec-head">
-          <h2>Reading</h2>
-          <span class="more">on the table now</span>
-        </div>
-        <p style="color:var(--muted);max-width:58ch;margin:0 0 18px">Working through the Stoics — the doctrine, not just the mood.</p>
-        <ul class="list">
-          <li><span class="t">Discourses &amp; Enchiridion <span class="by">— Epictetus</span></span><span class="d">reading</span></li>
-          <li><span class="t">Letters on Ethics (to Lucilius) <span class="by">— Seneca</span></span><span class="d">reading</span></li>
-          <li><span class="t">On the Shortness of Life <span class="by">— Seneca</span></span><span class="d">on the list</span></li>
-          <li><span class="t">On Duties <span class="by">— Cicero</span></span><span class="d">on the list</span></li>
-          <li><span class="t">The Inner Citadel <span class="by">— Pierre Hadot</span></span><span class="d">on the list</span></li>
-          <li><span class="t">Stoicism <span class="by">— John Sellars</span></span><span class="d">on the list</span></li>
-          <li><span class="t">Meditations <span class="by">— Marcus Aurelius</span></span><span class="d">companion</span></li>
-        </ul>
-      </section>
-
-      <section id="hello">
-        <div class="sec-head">
-          <h2>Say hello</h2>
-          <span class="more">who are you?</span>
-        </div>
-        <p style="color:var(--muted);max-width:58ch;margin:0 0 20px">Tell me who you are and what draws you to what I'm building — I read every one. If you'd like, I'll keep you posted as things take shape. No spam, ever.</p>
-        <form id="hello-form" class="hello-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-          <div class="frow">
-            <label class="vh" for="hf-name">Your name</label>
-            <input id="hf-name" name="name" type="text" placeholder="Your name" autocomplete="name" required />
-            <label class="vh" for="hf-email">Email</label>
-            <input id="hf-email" name="email" type="email" placeholder="Email" autocomplete="email" required />
-          </div>
-          <label class="vh" for="hf-interest">What are you interested in, or working on?</label>
-          <textarea id="hf-interest" name="interest" rows="3" placeholder="What are you interested in, or working on?"></textarea>
-          <div class="hp" aria-hidden="true">
-            <label for="hf-company">Leave this field empty</label>
-            <input id="hf-company" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
-          </div>
-          <label class="opt"><input type="checkbox" name="keep_posted" value="yes" /> <span>Keep me posted on what you're building</span></label>
-          <button type="submit">Send</button>
-          <p class="form-msg" role="status" aria-live="polite" tabindex="-1" hidden></p>
-        </form>
-      </section>
     </div>
   </main>
 
   <footer>
     <div class="wrap">
       <span>© <span id="yr"></span> Roofbeam LLC</span>
-      <span>Built in the open &middot; <a class="support" href="https://github.com/sponsors/parrajeremy" target="_blank" rel="noopener noreferrer">support this if you want</a></span>
     </div>
   </footer>
   <script>
     document.getElementById('yr').textContent = new Date().getFullYear();
-    const hf = document.getElementById('hello-form');
-    const hfLoaded = Date.now();
-    if (hf) hf.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const msg = hf.querySelector('.form-msg'), btn = hf.querySelector('button');
-      const say = (kind, text) => {
-        msg.hidden = false; msg.className = 'form-msg ' + kind;
-        msg.textContent = (kind === 'ok' ? '\u2713 ' : '\u26a0 ') + text;
-        msg.focus();
-      };
-      // Honeypot: only a bot fills a field a human never sees.
-      if (hf.querySelector('[name=_gotcha]').value) return;
-      // Time trap: nobody reads and answers this in under three seconds.
-      if (Date.now() - hfLoaded < 3000) {
-        say('err', 'That was quick — give it another try.');
-        return;
-      }
-      if (hf.action.includes('YOUR_FORM_ID')) {
-        say('err', "Thanks — the form isn't wired up just yet. Try again shortly.");
-        return;
-      }
-      btn.disabled = true; const label = btn.textContent; btn.textContent = 'Sending…';
-      try {
-        const r = await fetch(hf.action, { method: 'POST', body: new FormData(hf), headers: { Accept: 'application/json' } });
-        if (!r.ok) throw new Error();
-        hf.reset(); say('ok', "Thanks — I'll be in touch.");
-      } catch {
-        say('err', 'Something went off — try again, or email me directly.');
-      }
-      btn.disabled = false; btn.textContent = label;
-    });
   </script>
 </body>
 </html>
